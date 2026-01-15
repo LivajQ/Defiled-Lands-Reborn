@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "defiled_lands_reborn:defiled_sandstone"
+  },
+  "result": "defiled_lands_reborn:defiled_sandstone_slab"
+}

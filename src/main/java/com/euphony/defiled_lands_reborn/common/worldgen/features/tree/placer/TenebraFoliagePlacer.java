@@ -1,7 +1,7 @@
 package com.euphony.defiled_lands_reborn.common.worldgen.features.tree.placer;
 
 import com.euphony.defiled_lands_reborn.common.init.DLFoliagePlacers;
-import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,9 +14,11 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 import org.jetbrains.annotations.NotNull;
 
 public class TenebraFoliagePlacer extends FoliagePlacer {
-    public static final MapCodec<TenebraFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec((p_161522_) ->
-            foliagePlacerParts(p_161522_).apply(p_161522_, TenebraFoliagePlacer::new));
-
+    public static final Codec<TenebraFoliagePlacer> CODEC =
+            RecordCodecBuilder.create(instance ->
+                    foliagePlacerParts(instance).apply(instance, TenebraFoliagePlacer::new)
+            );
+    
     public TenebraFoliagePlacer(IntProvider radius, IntProvider offset) {
         super(radius, offset);
     }

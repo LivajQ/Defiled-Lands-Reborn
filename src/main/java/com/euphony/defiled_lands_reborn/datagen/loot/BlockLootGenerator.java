@@ -4,7 +4,6 @@ import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
 import com.euphony.defiled_lands_reborn.common.init.DLBlocks;
 import com.euphony.defiled_lands_reborn.common.init.DLItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
@@ -13,23 +12,20 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class BlockLootGenerator extends BlockLootSubProvider {
-    public BlockLootGenerator(HolderLookup.Provider registries) {
-        super(Set.of(), FeatureFlags.DEFAULT_FLAGS, registries);
+    public BlockLootGenerator() {
+        super(Set.of(), FeatureFlags.DEFAULT_FLAGS);
     }
-
+    
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        List<Block> blockList = BuiltInRegistries.BLOCK.entrySet().stream()
+        return BuiltInRegistries.BLOCK.entrySet().stream()
                 .filter(e -> e.getKey().location().getNamespace().equals(DefiledLandsReborn.MOD_ID))
                 .map(Map.Entry::getValue)
                 .toList();
-        return blockList;
-        // return DLBlocks.BLOCKS.getEntries().stream().filter(holder -> !holder.get().asItem().equals(Items.AIR)).map(holder -> (Block)holder.get()).toList();
     }
 
     @Override

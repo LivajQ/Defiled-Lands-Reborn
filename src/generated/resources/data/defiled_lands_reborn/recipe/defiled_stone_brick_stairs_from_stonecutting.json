@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "defiled_lands_reborn:defiled_stone_bricks",
-  "result": {
-    "count": 1,
-    "id": "defiled_lands_reborn:defiled_stone_brick_stairs"
-  }
-}

@@ -10,67 +10,69 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import org.jetbrains.annotations.NotNull;
 
 public class CorruptionCategory implements IRecipeCategory<CorruptionRecipe> {
-    public static final IRecipeType<CorruptionRecipe> CORRUPTION = IRecipeType.create(DefiledLandsReborn.MOD_ID, "corruption", CorruptionRecipe.class);
+    
+    public static final RecipeType<CorruptionRecipe> CORRUPTION =
+            new RecipeType<>(new ResourceLocation(DefiledLandsReborn.MOD_ID, "corruption"), CorruptionRecipe.class);
+    
     private final IDrawable icon;
     private final Component localizedName;
-
+    
     public CorruptionCategory(IGuiHelper helper) {
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, DLItems.DEFILEMENT_POWDER.toStack());
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(DLItems.DEFILEMENT_POWDER.get()));
         this.localizedName = Component.translatable("gui.defiled_lands_reborn.corruption_jei");
     }
-
+    
     @Override
-    public int getWidth() {
-        return 82;
-    }
-
-    @Override
-    public int getHeight() {
-        return 34;
-    }
-
-    @Override
-    public void draw(CorruptionRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
-    }
-
-    @Override
-    public @NotNull IRecipeType<CorruptionRecipe> getRecipeType() {
+    public RecipeType<CorruptionRecipe> getRecipeType() {
         return CORRUPTION;
     }
-
+    
     @Override
-    public @NotNull Component getTitle() {
+    public Component getTitle() {
         return this.localizedName;
     }
-
+    
     @Override
     public IDrawable getIcon() {
         return this.icon;
     }
-
+    
+    @Override
+    public int getWidth() {
+        return 82;
+    }
+    
+    @Override
+    public int getHeight() {
+        return 34;
+    }
+    
+    @Override
+    public void draw(CorruptionRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
+    }
+    
     @Override
     public void createRecipeExtras(IRecipeExtrasBuilder builder, CorruptionRecipe recipe, IFocusGroup focuses) {
         builder.addRecipeArrow().setPosition(26, 9);
     }
-
+    
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, CorruptionRecipe recipe, IFocusGroup focuses) {
-        builder.addInputSlot(1, 9)
-                .setStandardSlotBackground()
-                .add(Ingredient.of(recipe.input()));
-
-        builder.addOutputSlot(61,  9)
-                .setOutputSlotBackground()
-                .add(new ItemStack(recipe.output().asItem()));
+        builder.addSlot(RecipeIngredientRole.INPUT, 1, 9)
+                .addIngredients(Ingredient.of(recipe.input()));
+        
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 61, 9)
+                .addItemStack(new ItemStack(recipe.output().asItem()));
     }
 }

@@ -3,7 +3,6 @@ package com.euphony.defiled_lands_reborn.common.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -13,7 +12,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -24,33 +23,54 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.NotNull;
 
 public class Shambler extends Monster {
+    
     public Shambler(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
+        this.setMaxUpStep(1.0F);
     }
-
+    
     @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.ENDERMAN_AMBIENT;
     }
-
+    
     @Override
     protected @NotNull SoundEvent getHurtSound(DamageSource damageSource) {
         return SoundEvents.ENDERMAN_HURT;
     }
-
+    
     @Override
     protected @NotNull SoundEvent getDeathSound() {
         return SoundEvents.ENDERMAN_DEATH;
     }
-
+    
     public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 40.0F).add(Attributes.MOVEMENT_SPEED, 0.14F).add(Attributes.ATTACK_DAMAGE, 14.0F).add(Attributes.FOLLOW_RANGE, 64.0F).add(Attributes.STEP_HEIGHT, 1.0F).add(Attributes.KNOCKBACK_RESISTANCE, 1.0F);
+        return Monster.createMonsterAttributes()
+                .add(Attributes.MAX_HEALTH, 40.0F)
+                .add(Attributes.MOVEMENT_SPEED, 0.14F)
+                .add(Attributes.ATTACK_DAMAGE, 14.0F)
+                .add(Attributes.FOLLOW_RANGE, 64.0F)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0F);
     }
-
-    public static boolean checkShamblerSpawnRules(EntityType<? extends Monster> type, ServerLevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() > 50 && level.getDifficulty() != Difficulty.PEACEFUL && (EntitySpawnReason.ignoresLightRequirements(spawnReason) || isDarkEnoughToSpawn(level, pos, random)) && checkMobSpawnRules(type, level, spawnReason, pos, random);
+    
+    public static boolean checkShamblerSpawnRules(
+            EntityType<? extends Monster> type,
+            ServerLevelAccessor level,
+            MobSpawnType spawnReason,
+            BlockPos pos,
+            RandomSource random
+    ) {
+        return pos.getY() > 50
+                && level.getDifficulty() != Difficulty.PEACEFUL
+                && (spawnReason == MobSpawnType.SPAWNER || isDarkEnoughToSpawn(level, pos, random))
+                && checkMobSpawnRules(type, level, spawnReason, pos, random);
     }
-
+    
+    public static boolean isDarkEnoughToSpawn(ServerLevelAccessor level, BlockPos pos, RandomSource random) {
+        int brightness = level.getMaxLocalRawBrightness(pos);
+        return brightness <= random.nextInt(8);
+    }
+    
     protected int getDebuffDuration() {
         int multiplier = switch (level().getDifficulty()) {
             case NORMAL -> 15;
@@ -59,38 +79,56 @@ public class Shambler extends Monster {
         };
         return multiplier * 20;
     }
-
+    
     @Override
-    public boolean doHurtTarget(ServerLevel level, @NotNull Entity entity) {
-        int i = getDebuffDuration();
-
-        if (entity instanceof LivingEntity) {
-            ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, i, 1));
-            ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, i, 1));
-            ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 0));
+    public boolean doHurtTarget(@NotNull Entity entity) {
+        int duration = getDebuffDuration();
+        
+        if (entity instanceof LivingEntity living) {
+            living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, duration, 1));
+            living.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, duration, 1));
+            living.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 0));
         }
-        return super.doHurtTarget(level, entity);
+        
+        return super.doHurtTarget(entity);
     }
-
+    
     @Override
     public void tick() {
         Level level = level();
+        
         if (level.isClientSide) {
             for (int i = 0; i < 2; ++i) {
-                level.addParticle(ParticleTypes.SMOKE,
+                level.addParticle(
+                        ParticleTypes.SMOKE,
                         this.getX() + (random.nextDouble() - 0.5D) * getBbWidth(),
                         this.getY() + random.nextDouble() * getBbHeight(),
                         this.getZ() + (random.nextDouble() - 0.5D) * getBbWidth(),
-                        0.0D, 0.0D, 0.0D);
+                        0.0D, 0.0D, 0.0D
+                );
             }
         }
-
-        if (level.isBrightOutside() && level.canSeeSky(getOnPos().above()) && random.nextFloat() < 0.02f) {
-            if(!this.dead) {
+        
+        // Sunlight death
+        if (!level.isClientSide
+                && level.isDay()
+                && level.canSeeSky(getOnPos().above())
+                && random.nextFloat() < 0.02f) {
+            
+            if (!this.isDeadOrDying()) {
                 this.setHealth(0.0f);
-                this.die(new DamageSource(registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(DamageTypes.GENERIC)));
+                
+                DamageSource generic = new DamageSource(
+                        this.level().registryAccess()
+                                .registryOrThrow(Registries.DAMAGE_TYPE)
+                                .getHolderOrThrow(DamageTypes.GENERIC)
+                );
+                
+                this.die(generic);
             }
         }
+        
         super.tick();
     }
+    
 }

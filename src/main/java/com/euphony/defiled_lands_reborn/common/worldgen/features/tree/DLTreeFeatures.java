@@ -8,8 +8,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 public class DLTreeFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> TENEBRA_TREE = createKey("tenebra");
 
-    public static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name)
-    {
+    public static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, Utils.prefix(name));
     }
 }

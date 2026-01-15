@@ -1,7 +1,6 @@
 package com.euphony.defiled_lands_reborn.client.renderer.boss;
 
 import com.euphony.defiled_lands_reborn.client.model.MournerModel;
-import com.euphony.defiled_lands_reborn.client.state.MournerRenderState;
 import com.euphony.defiled_lands_reborn.common.entity.boss.MournerBoss;
 import com.euphony.defiled_lands_reborn.utils.Utils;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -12,153 +11,152 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
-import net.neoforged.neoforge.client.event.RenderLivingEvent;
-import net.neoforged.neoforge.common.NeoForge;
+import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.common.MinecraftForge;
 
-public class MournerBossRenderer extends MobRenderer<MournerBoss, MournerRenderState, MournerModel> {
+public class MournerBossRenderer extends MobRenderer<MournerBoss, MournerModel> {
+    
     private static final ResourceLocation[] MOURNER_LOCATION = {
             Utils.prefix("textures/entity/the_mourner.png"),
             Utils.prefix("textures/entity/the_mourner_rage1.png"),
-            Utils.prefix("textures/entity/the_mourner_rage2.png"),
+            Utils.prefix("textures/entity/the_mourner_rage2.png")
     };
-    private static final ResourceLocation MOURNER_EXPLOSION_LOCATION = Utils.prefix("textures/entity/the_mourner_explosion.png");
-
+    
+    private static final ResourceLocation MOURNER_EXPLOSION_LOCATION =
+            Utils.prefix("textures/entity/the_mourner_explosion.png");
+    
     public static final RenderType DECAL = RenderType.entityDecal(MOURNER_LOCATION[0]);
-    public static final RenderType DECAL_DEATH = RenderType.entityDecal(MOURNER_LOCATION[2]);
-
-    @Override
-    protected void setupRotations(MournerRenderState renderState, PoseStack poseStack, float bodyRot, float scale) {
-        if (renderState.isShaking || renderState.deathTime > 0) {
-            bodyRot += (float)(Math.cos((double)renderState.ageInTicks * (double)3.25F) * Math.PI * (double)0.4F);
-        }
-
-        if (!renderState.hasPose(Pose.SLEEPING)) {
-            poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - bodyRot));
-        }
-
-        if (renderState.isAutoSpinAttack) {
-            poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F - renderState.xRot));
-            poseStack.mulPose(Axis.YP.rotationDegrees(renderState.ageInTicks * -75.0F));
-        } else if (renderState.hasPose(Pose.SLEEPING)) {
-            Direction direction = renderState.bedOrientation;
-            float f1 = direction != null ? sleepDirectionToRotation(direction) : bodyRot;
-            poseStack.mulPose(Axis.YP.rotationDegrees(f1));
-            poseStack.mulPose(Axis.ZP.rotationDegrees(this.getFlipDegrees()));
-            poseStack.mulPose(Axis.YP.rotationDegrees(270.0F));
-        } else if (renderState.isUpsideDown) {
-            poseStack.translate(0.0F, (renderState.boundingBoxHeight + 0.1F) / scale, 0.0F);
-            poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
-        }
-    }
-
-    private static float sleepDirectionToRotation(Direction facing) {
-        switch (facing) {
-            case SOUTH -> {
-                return 90.0F;
-            }
-            case WEST -> {
-                return 0.0F;
-            }
-            case NORTH -> {
-                return 270.0F;
-            }
-            case EAST -> {
-                return 180.0F;
-            }
-            default -> {
-                return 0.0F;
-            }
-        }
-    }
-
-    @Override
-    public void render(MournerRenderState renderState, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        if (!((RenderLivingEvent.Pre<?, ?, ?>)NeoForge.EVENT_BUS.post(new RenderLivingEvent.Pre(renderState, this, renderState.partialTick, poseStack, buffer, packedLight))).isCanceled()) {
-            poseStack.pushPose();
-            if (renderState.hasPose(Pose.SLEEPING)) {
-                Direction direction = renderState.bedOrientation;
-                if (direction != null) {
-                    float f = renderState.eyeHeight - 0.1F;
-                    poseStack.translate((float)(-direction.getStepX()) * f, 0.0F, (float)(-direction.getStepZ()) * f);
-                }
-            }
-
-            float f1 = renderState.scale;
-            poseStack.scale(f1, f1, f1);
-            this.setupRotations(renderState, poseStack, renderState.bodyRot, f1);
-            poseStack.scale(-1.0F, -1.0F, 1.0F);
-            this.scale(renderState, poseStack);
-            poseStack.translate(0.0F, -1.501F, 0.0F);
-            this.model.setupAnim(renderState);
-
-            boolean flag1 = this.isBodyVisible(renderState);
-            boolean flag = !flag1 && !renderState.isInvisibleToPlayer;
-            RenderType rendertype = this.getRenderType(renderState, flag1, flag, renderState.appearsGlowing);
-            if (rendertype != null) {
-                if(renderState.deathTime > 0 || renderState.invulnerableTicks > 0) {
-                    float progress;
-                    if(renderState.deathTime > 0) {
-                        progress = renderState.deathTime / 200.0F;
-                    } else {
-                        progress = renderState.invulnerableTicks / 200.0F;
-                    }
-                    int i = ARGB.color(Mth.floor(progress * 255.0F), -1);
-                    VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.dragonExplosionAlpha(MOURNER_EXPLOSION_LOCATION));
-                    this.model.renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, i);
-                    VertexConsumer vertexconsumer1 = buffer.getBuffer(DECAL);
-                    this.model.renderToBuffer(poseStack, vertexconsumer1, packedLight, OverlayTexture.pack(0.0F, renderState.deathTime > 0));
-                } else {
-                    VertexConsumer vertexconsumer2 = buffer.getBuffer(rendertype);
-                    int i = getOverlayCoords(renderState, this.getWhiteOverlayProgress(renderState));
-                    int j = flag ? 654311423 : -1;
-                    int k = ARGB.multiply(j, this.getModelTint(renderState));
-                    this.model.renderToBuffer(poseStack, vertexconsumer2, packedLight, i, k);
-                }
-            }
-
-            if (this.shouldRenderLayers(renderState)) {
-                for(RenderLayer<MournerRenderState, MournerModel> renderlayer : this.layers) {
-                    renderlayer.render(poseStack, buffer, packedLight, renderState, renderState.yRot, renderState.xRot);
-                }
-            }
-
-            poseStack.popPose();
-            super.render(renderState, poseStack, buffer, packedLight);
-            NeoForge.EVENT_BUS.post(new RenderLivingEvent.Post(renderState, this, renderState.partialTick, poseStack, buffer, packedLight));
-        }
-    }
-
+    
     public MournerBossRenderer(EntityRendererProvider.Context context) {
         super(context, new MournerModel(context.bakeLayer(ModelLayers.PLAYER)), 0.5f);
     }
-
+    
     @Override
-    public MournerRenderState createRenderState() {
-        return new MournerRenderState();
+    protected void setupRotations(MournerBoss entity, PoseStack poseStack,
+                                  float ageInTicks, float rotationYaw, float partialTicks) {
+        
+        if (entity.deathTime > 0 || entity.isShaking) {
+            rotationYaw += (float)(Math.cos(entity.tickCount * 3.25F) * Math.PI * 0.4F);
+        }
+        
+        if (!entity.hasPose(Pose.SLEEPING)) {
+            poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - rotationYaw));
+        }
+        
+        if (entity.isAutoSpinAttack()) {
+            poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F - entity.getXRot()));
+            poseStack.mulPose(Axis.YP.rotationDegrees(entity.tickCount * -75.0F));
+        }
+        else if (entity.hasPose(Pose.SLEEPING)) {
+            Direction direction = entity.getBedOrientation();
+            float f1 = direction != null ? sleepDirectionToRotation(direction) : rotationYaw;
+            poseStack.mulPose(Axis.YP.rotationDegrees(f1));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(this.getFlipDegrees(entity)));
+            poseStack.mulPose(Axis.YP.rotationDegrees(270.0F));
+        }
+        else {
+            String name = entity.getName().getString();
+            if (name.equals("Dinnerbone") || name.equals("Grumm")) {
+                poseStack.translate(0.0F, entity.getBbHeight() + 0.1F, 0.0F);
+                poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
+            }
+        }
     }
-
-    @Override
-    public void extractRenderState(MournerBoss mourner, MournerRenderState renderState, float p_361157_) {
-        super.extractRenderState(mourner, renderState, p_361157_);
-        renderState.isShaking = mourner.deathTime > 0;
-        renderState.isFiring = mourner.isFiring();
-
-        renderState.rageFactor = mourner.getRageFactor();
-        renderState.currentAttack = mourner.getCurrentAttack();
-
-        renderState.deathTime = mourner.deathTime;
-        renderState.invulnerableTicks = mourner.getInvulTime();
+    
+    private static float sleepDirectionToRotation(Direction facing) {
+        return switch (facing) {
+            case SOUTH -> 90.0F;
+            case WEST -> 0.0F;
+            case NORTH -> 270.0F;
+            case EAST -> 180.0F;
+            default -> 0.0F;
+        };
     }
-
+    
     @Override
-    public ResourceLocation getTextureLocation(MournerRenderState renderState) {
-        return MOURNER_LOCATION[renderState.rageFactor - 1];
+    public void render(MournerBoss entity, float entityYaw, float partialTicks,
+                       PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+        
+        RenderLivingEvent.Pre<MournerBoss, MournerModel> pre =
+                new RenderLivingEvent.Pre<>(entity, this, partialTicks, poseStack, buffer, packedLight);
+        
+        if (MinecraftForge.EVENT_BUS.post(pre)) return;
+        
+        poseStack.pushPose();
+        
+        if (entity.hasPose(Pose.SLEEPING)) {
+            Direction direction = entity.getBedOrientation();
+            if (direction != null) {
+                float f = entity.getEyeHeight() - 0.1F;
+                poseStack.translate(-direction.getStepX() * f, 0.0F, -direction.getStepZ() * f);
+            }
+        }
+        
+        float scale = entity.getScale();
+        poseStack.scale(scale, scale, scale);
+        
+        this.setupRotations(entity, poseStack, entity.tickCount + partialTicks, entityYaw, partialTicks);
+        
+        poseStack.scale(-1.0F, -1.0F, 1.0F);
+        poseStack.translate(0.0F, -1.501F, 0.0F);
+        
+        this.model.setupAnim(entity, 0, 0, partialTicks, entity.getYRot(), entity.getXRot());
+        
+        boolean visible = this.isBodyVisible(entity);
+        boolean outline = false;
+        entity.isShaking = entity.deathTime > 0;
+        
+        RenderType type = this.getRenderType(entity, visible, outline, entity.isCurrentlyGlowing());
+        
+        if (type != null) {
+            if (entity.deathTime > 0 || entity.getInvulTime() > 0) {
+                
+                float progress = entity.deathTime > 0
+                        ? entity.deathTime / 200.0F
+                        : entity.getInvulTime() / 200.0F;
+                
+                int argb = (Mth.floor(progress * 255.0F) << 24) | 0xFFFFFF;
+                
+                float a = ((argb >> 24) & 0xFF) / 255.0F;
+                float r = ((argb >> 16) & 0xFF) / 255.0F;
+                float g = ((argb >> 8) & 0xFF) / 255.0F;
+                float b = (argb & 0xFF) / 255.0F;
+                
+                VertexConsumer explosion = buffer.getBuffer(RenderType.entityTranslucent(MOURNER_EXPLOSION_LOCATION));
+                this.model.renderToBuffer(
+                        poseStack, explosion, packedLight, OverlayTexture.NO_OVERLAY,
+                        r, g, b, a
+                );
+                
+                VertexConsumer decal = buffer.getBuffer(DECAL);
+                this.model.renderToBuffer(
+                        poseStack, decal, packedLight, OverlayTexture.NO_OVERLAY,
+                        1.0F, 1.0F, 1.0F, 1.0F
+                );
+                
+            } else {
+                VertexConsumer normal = buffer.getBuffer(type);
+                this.model.renderToBuffer(
+                        poseStack, normal, packedLight, OverlayTexture.NO_OVERLAY,
+                        1.0F, 1.0F, 1.0F, 1.0F
+                );
+            }
+        }
+        
+        poseStack.popPose();
+        
+        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
+        
+        MinecraftForge.EVENT_BUS.post(new RenderLivingEvent.Post<>(entity, this, partialTicks, poseStack, buffer, packedLight));
+    }
+    
+    @Override
+    public ResourceLocation getTextureLocation(MournerBoss entity) {
+        return MOURNER_LOCATION[entity.getRageFactor() - 1];
     }
 }

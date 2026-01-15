@@ -15,22 +15,24 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class HephaestiteOreBlock extends DropExperienceBlock {
     public HephaestiteOreBlock(IntProvider xpRange, Properties properties) {
-        super(xpRange, properties.randomTicks());
+        super(properties.randomTicks(), xpRange);
     }
-
+    
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-        if (!entity.fireImmune() && entity instanceof LivingEntity livingEntity && EnchantmentHelper.getEnchantmentLevel(
-                level.registryAccess().holderOrThrow(Enchantments.FROST_WALKER), livingEntity) <= 0) {
+        if (!entity.fireImmune()
+                && entity instanceof LivingEntity livingEntity
+                && EnchantmentHelper.getEnchantmentLevel(Enchantments.FROST_WALKER, livingEntity) <= 0) {
+            
             entity.hurt(level.damageSources().hotFloor(), 2.0F);
             entity.setRemainingFireTicks(60);
         }
-
+        
         super.stepOn(level, pos, state, entity);
     }
-
+    
     @Override
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         CorruptionUtils.spread(level, pos, state, random);
     }
 }

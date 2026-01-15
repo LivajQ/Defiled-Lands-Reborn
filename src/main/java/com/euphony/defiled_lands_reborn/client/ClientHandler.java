@@ -7,15 +7,16 @@ import com.euphony.defiled_lands_reborn.client.renderer.boss.DestroyerBossRender
 import com.euphony.defiled_lands_reborn.client.renderer.boss.MournerBossRenderer;
 import com.euphony.defiled_lands_reborn.common.init.DLEntities;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 
-@EventBusSubscriber(modid = DefiledLandsReborn.MOD_ID, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = DefiledLandsReborn.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientHandler {
+    
     @SubscribeEvent
-    public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
+    public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(DLEntities.DEFILED_SLIME.get(), DefiledSlimeRenderer::new);
         event.registerEntityRenderer(DLEntities.BOOK_WYRM.get(), BookWyrmRenderer::new);
         event.registerEntityRenderer(DLEntities.GOLDEN_BOOK_WYRM.get(), GoldenBookWyrmRenderer::new);
@@ -23,17 +24,17 @@ public class ClientHandler {
         event.registerEntityRenderer(DLEntities.HOST.get(), HostRenderer::new);
         event.registerEntityRenderer(DLEntities.SHAMBLER.get(), ShamblerRenderer::new);
         event.registerEntityRenderer(DLEntities.TWISTED_SHAMBLER.get(), TwistedShamblerRenderer::new);
-
+        
         event.registerEntityRenderer(DLEntities.MOURNER.get(), MournerBossRenderer::new);
         event.registerEntityRenderer(DLEntities.DESTROYER.get(), DestroyerBossRenderer::new);
-
+        
         event.registerEntityRenderer(DLEntities.RAVAGER_PROJECTILE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(DLEntities.BLASTEM_FRUIT_PROJECTILE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(DLEntities.BLAZING_BLASTEM_FRUIT_PROJECTILE.get(), ThrownItemRenderer::new);
     }
-
+    
     @SubscribeEvent
-    public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
+    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(BookWyrmModel.MODEL, BookWyrmModel::createBodyLayer);
     }
 }

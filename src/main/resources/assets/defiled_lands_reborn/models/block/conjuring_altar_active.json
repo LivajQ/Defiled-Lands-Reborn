@@ -1,0 +1,9 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "bottom": "defiled_lands_reborn:block/defiled_stone",
+    "top": "defiled_lands_reborn:block/conjuring_altar_top_active",
+    "side": "defiled_lands_reborn:block/conjuring_altar_side_active",
+    "particle": "defiled_lands_reborn:block/defiled_stone"
+  }
+}

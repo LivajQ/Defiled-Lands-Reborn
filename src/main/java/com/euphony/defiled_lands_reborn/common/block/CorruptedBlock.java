@@ -13,7 +13,7 @@ public class CorruptedBlock extends Block {
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         CorruptionUtils.spread(level, pos, state, random);
     }
 }

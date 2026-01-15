@@ -4,28 +4,22 @@ import com.euphony.defiled_lands_reborn.common.init.DLEntities;
 import com.euphony.defiled_lands_reborn.common.init.DLItems;
 import com.euphony.defiled_lands_reborn.common.init.DLSounds;
 import com.euphony.defiled_lands_reborn.config.ConfigHelper;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
-import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -40,13 +34,10 @@ import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.common.extensions.IHolderExtension;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Map;
 
 public class BookWyrm extends Animal {
     private int enchLevel, digestingTime;
@@ -61,17 +52,17 @@ public class BookWyrm extends Animal {
         goalSelector.addGoal(0, new FloatGoal(this));
         goalSelector.addGoal(1, new PanicGoal(this, 1.3));
         goalSelector.addGoal(2, new BreedGoal(this, 1));
-        goalSelector.addGoal(3, new TemptGoal(this, 1.2, Ingredient.of(DLItems.FOUL_CANDY, Items.ENCHANTED_BOOK), false));
+        goalSelector.addGoal(3, new TemptGoal(this, 1.2, Ingredient.of(DLItems.FOUL_CANDY.get(), Items.ENCHANTED_BOOK), false));
         goalSelector.addGoal(4, new FollowParentGoal(this, 1.2));
         goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1));
         goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6f));
         goalSelector.addGoal(7, new RandomLookAroundGoal(this));
     }
-
+    
     public static AttributeSupplier.Builder createAttributes() {
-        return Animal.createAnimalAttributes().add(Attributes.MAX_HEALTH, 12).add(Attributes.MOVEMENT_SPEED, 0.25);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 12.0D).add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
-
+    
     @Override
     public void aiStep() {
         super.aiStep();
@@ -100,10 +91,9 @@ public class BookWyrm extends Animal {
         if (!isBaby() && (stack.is(Items.ENCHANTED_BOOK))) {
             toDigest += getBookValue(stack);
             if (digestTimer <= 0) digestTimer = digestingTime;
-
-            stack.consume(1, player);
-
-            playSound(SoundEvents.GENERIC_EAT.value(), 1, 1);
+            
+            stack.shrink(1);
+            playSound(SoundEvents.GENERIC_EAT, 1, 1);
             return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, hand);
@@ -114,34 +104,40 @@ public class BookWyrm extends Animal {
         List<EnchantmentInstance> enchantmentInstances = getPossibleEnchantments();
         stack = new ItemStack(Items.ENCHANTED_BOOK);
         for (EnchantmentInstance e : enchantmentInstances) {
-            stack.enchant(e.enchantment(), e.level());
+            stack.enchant(e.enchantment, e.level);
         }
-        playSound(DLSounds.wyrmBook.get(), 1, 1);
-        spawnAtLocation((ServerLevel) level(), stack);
+        playSound(DLSounds.WYRM_BOOK.get(), 1, 1);
+        spawnAtLocation(stack);
+        
     }
-
+    
     public List<EnchantmentInstance> getPossibleEnchantments() {
-        List<EnchantmentInstance> enchantmentInstances = EnchantmentHelper.selectEnchantment(random, Items.BOOK.getDefaultInstance(), enchLevel, level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).stream().map(a -> a.exclusiveSet().get(0)).map(IHolderExtension::getDelegate));
-        enchantmentInstances.removeIf(enchantmentInstance -> enchantmentInstance.enchantment().tags().noneMatch(p -> p.isFor(EnchantmentTags.IN_ENCHANTING_TABLE.registry())));
-        return enchantmentInstances;
+        var registry = level().registryAccess().registryOrThrow(Registries.ENCHANTMENT);
+        
+        List<Enchantment> allowed = registry.stream().filter(Enchantment::isAllowedOnBooks).toList();
+        List<EnchantmentInstance> list = EnchantmentHelper.selectEnchantment(random, Items.BOOK.getDefaultInstance(), enchLevel, false);
+        list.removeIf(e -> !allowed.contains(e.enchantment));
+        
+        return list;
     }
-
+    
     public static int getBookValue(ItemStack stack) {
         int total = 0;
-
-        for (Object2IntMap.Entry<Holder<Enchantment>> e : EnchantmentHelper.getEnchantmentsForCrafting(stack).entrySet()) {
-            total += e.getKey().value().getMinCost(e.getIntValue());
+        
+        Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(stack);
+        for (Map.Entry<Enchantment, Integer> e : enchants.entrySet()) {
+            total += e.getKey().getMinCost(e.getValue());
         }
-
+        
         return total;
     }
-
+    
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, EntitySpawnReason p_363316_, @Nullable SpawnGroupData p_146749_) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, CompoundTag dataTag) {
         wildGenes(this, random);
-        return super.finalizeSpawn(p_146746_, p_146747_, p_363316_, p_146749_);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, dataTag);
     }
-
+    
     public static void wildGenes(BookWyrm wyrm, RandomSource rand) {
         wyrm.digestingTime = rand.nextInt(81) + 160;
         wyrm.enchLevel = rand.nextInt(4) + 3;
@@ -172,22 +168,22 @@ public class BookWyrm extends Animal {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(DLItems.FOUL_CANDY);
+        return stack.is(DLItems.FOUL_CANDY.get());
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return DLSounds.wyrmIdle.get();
+        return DLSounds.WYRM_IDLE.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return DLSounds.wyrmHurt.get();
+        return DLSounds.WYRM_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return DLSounds.wyrmDeath.get();
+        return DLSounds.WYRM_DEATH.get();
     }
 
     @Override
@@ -203,27 +199,27 @@ public class BookWyrm extends Animal {
     public boolean isDigesting() {
         return toDigest > 0;
     }
-
+    
     @Override
-    public void readAdditionalSaveData(ValueInput compound) {
-        super.readAdditionalSaveData(compound);
-        enchLevel = compound.getInt("EnchantingLevel").get();
-        digestingTime = compound.getInt("DigestingTime").get();
-        digested = compound.getInt("Digested").get();
-        toDigest = compound.getInt("ToDigest").get();
-        digestTimer = compound.getInt("DigestTimer").get();
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        enchLevel = tag.getInt("EnchantingLevel");
+        digestingTime = tag.getInt("DigestingTime");
+        digested = tag.getInt("Digested");
+        toDigest = tag.getInt("ToDigest");
+        digestTimer = tag.getInt("DigestTimer");
     }
-
+    
     @Override
-    public void addAdditionalSaveData(ValueOutput compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("EnchantingLevel", enchLevel);
-        compound.putInt("DigestingTime", digestingTime);
-        compound.putInt("Digested", digested);
-        compound.putInt("ToDigest", toDigest);
-        compound.putInt("DigestTimer", digestTimer);
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putInt("EnchantingLevel", enchLevel);
+        tag.putInt("DigestingTime", digestingTime);
+        tag.putInt("Digested", digested);
+        tag.putInt("ToDigest", toDigest);
+        tag.putInt("DigestTimer", digestTimer);
     }
-
+    
     public boolean isGolden(AgeableMob mate) {
         double i = ConfigHelper.common().entity.goldenBookWyrmProbabilityForZeroGolden.get();
         if (mate instanceof GoldenBookWyrm) {
@@ -239,24 +235,23 @@ public class BookWyrm extends Animal {
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mate) {
         if(mate instanceof BookWyrm) {
             if (isGolden(mate)) {
-                GoldenBookWyrm child = DLEntities.GOLDEN_BOOK_WYRM.get().create(level, EntitySpawnReason.BREEDING);
+                GoldenBookWyrm child = DLEntities.GOLDEN_BOOK_WYRM.get().create(level);
                 mixGenes(this, (BookWyrm) mate, child, random);
                 return child;
             } else {
-                BookWyrm child = DLEntities.BOOK_WYRM.get().create(level, EntitySpawnReason.BREEDING);
+                BookWyrm child = DLEntities.BOOK_WYRM.get().create(level);
                 mixGenes(this, (BookWyrm) mate, child, random);
                 return child;
             }
         }
         return null;
     }
-
+    
     @Override
-    @Nonnull
-    public Packet<ClientGamePacketListener> getAddEntityPacket(@Nonnull ServerEntity serverEntity) {
-        return new ClientboundAddEntityPacket(this, serverEntity);
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return new ClientboundAddEntityPacket(this);
     }
-
+    
     public int getDigestingTime() {
         return digestingTime;
     }

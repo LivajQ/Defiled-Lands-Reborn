@@ -16,6 +16,11 @@ public class DLBlockTags {
 
     public static final TagKey<Block> ORES = createCTag("ores");
     public static final TagKey<Block> STORAGE_BLOCKS = createCTag("storage_blocks");
+    
+    public static final TagKey<Block> INCORRECT_FOR_UMBRIUM = create("incorrect_for_umbrium");
+    public static final TagKey<Block> INCORRECT_FOR_SCARLITE = create("incorrect_for_scarlite");
+    public static final TagKey<Block> INCORRECT_FOR_SCARLITE_RAZOR = create("incorrect_for_scarlite_razor");
+    public static final TagKey<Block> INCORRECT_FOR_RAVAGING = create("incorrect_for_ravaging");
 
     private static TagKey<Block> create(String name) {
         return TagKey.create(Registries.BLOCK, Utils.prefix(name));

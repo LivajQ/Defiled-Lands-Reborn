@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "snowy=false": {
+      "model": "defiled_lands_reborn:block/defiled_grass_block"
+    },
+    "snowy=true": {
+      "model": "defiled_lands_reborn:block/defiled_grass_block_snow"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_pellet": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "defiled_lands_reborn:umbrium_pellet"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "defiled_lands_reborn:spiked_pellet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_vilespine": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "defiled_lands_reborn:vilespine"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_vilespine",
+      "has_pellet",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "defiled_lands_reborn:spiked_pellet"
+    ]
+  },
+  "sends_telemetry_event": false
+}

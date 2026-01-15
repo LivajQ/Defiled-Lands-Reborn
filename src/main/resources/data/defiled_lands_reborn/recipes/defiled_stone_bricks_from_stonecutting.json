@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "defiled_lands_reborn:defiled_stone"
+  },
+  "result": "defiled_lands_reborn:defiled_stone_bricks"
+}

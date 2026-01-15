@@ -11,9 +11,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
 
-import java.util.function.Consumer;
+import java.util.List;
 
 public class BookWyrmAnalyzerItem extends Item {
     public BookWyrmAnalyzerItem(Properties properties) {
@@ -53,9 +53,10 @@ public class BookWyrmAnalyzerItem extends Item {
 
         return InteractionResult.CONSUME;
     }
-
+    
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
-        ItemUtils.addTooltip(tooltipAdder, "item.defiled_lands_reborn.book_wyrm_analyzer.tooltip");
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
+        ItemUtils.addTooltip(tooltip::add, "item.defiled_lands_reborn.book_wyrm_analyzer.tooltip");
     }
+    
 }

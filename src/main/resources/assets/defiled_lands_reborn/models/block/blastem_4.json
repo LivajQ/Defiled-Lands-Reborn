@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "defiled_lands_reborn:block/blastem_4"
+  }
+}

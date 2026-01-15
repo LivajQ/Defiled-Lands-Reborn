@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "V": {
+      "item": "defiled_lands_reborn:vilespine"
+    }
+  },
+  "pattern": [
+    "V",
+    "S",
+    "F"
+  ],
+  "result": {
+    "item": "minecraft:arrow"
+  },
+  "show_notification": true
+}

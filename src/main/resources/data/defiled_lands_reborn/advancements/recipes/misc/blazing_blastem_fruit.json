@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_fruit": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "defiled_lands_reborn:blastem_fruit"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_hephaestite": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "defiled_lands_reborn:hephaestite_shard"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "defiled_lands_reborn:blazing_blastem_fruit"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_hephaestite",
+      "has_fruit",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "defiled_lands_reborn:blazing_blastem_fruit"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -36,7 +36,7 @@ public class ConjuringAltarBlock extends Block implements EntityBlock {
     public static final VoxelShape AABB = Block.box(0.0F, 0.0F, 0.0F, 16.0F, 12.0F, 16.0F);
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return AABB;
     }
 
@@ -64,45 +64,49 @@ public class ConjuringAltarBlock extends Block implements EntityBlock {
             }
         }
     }
-
+    
     @Override
-    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        Block block = state.getBlock();
+    public InteractionResult use(BlockState state, Level level, BlockPos pos,
+                                 Player player, InteractionHand hand, BlockHitResult hitResult) {
+        
+        ItemStack stack = player.getItemInHand(hand);
+        
         if (state.getValue(ACTIVE) && level.getDifficulty() != Difficulty.PEACEFUL) {
             if (!level.isClientSide) {
-                if(stack.is(DLItems.IDOL_SORROW)) {
+                
+                if (stack.is(DLItems.IDOL_SORROW.get())) {
                     MournerBoss mourner = new MournerBoss(DLEntities.MOURNER.get(), level);
                     mourner.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
                     mourner.makeInvulnerable();
-
+                    
                     for (ServerPlayer serverPlayer : level.getEntitiesOfClass(ServerPlayer.class, mourner.getBoundingBox().inflate(50.0D))) {
                         CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, mourner);
                     }
-
+                    
                     level.addFreshEntity(mourner);
-
-                    stack.consume(1, player);
+                    stack.shrink(1);
                     return InteractionResult.SUCCESS;
-                } else if(stack.is(DLItems.CALLING_STONE)) {
+                }
+                
+                if (stack.is(DLItems.CALLING_STONE.get())) {
                     DestroyerBoss destroyer = new DestroyerBoss(DLEntities.DESTROYER.get(), level);
                     destroyer.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
                     destroyer.makeInvulnerable();
-
+                    
                     for (ServerPlayer serverPlayer : level.getEntitiesOfClass(ServerPlayer.class, destroyer.getBoundingBox().inflate(50.0D))) {
                         CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, destroyer);
                     }
-
+                    
                     level.addFreshEntity(destroyer);
-
-                    stack.consume(1, player);
+                    stack.shrink(1);
                     return InteractionResult.SUCCESS;
                 }
             }
-
         }
+        
         return InteractionResult.CONSUME;
     }
-
+    
     @SuppressWarnings("unchecked")
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {

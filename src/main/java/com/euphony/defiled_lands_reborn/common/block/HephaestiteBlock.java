@@ -12,15 +12,17 @@ public class HephaestiteBlock extends CorruptedBlock {
     public HephaestiteBlock(Properties properties) {
         super(properties);
     }
-
+    
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-        if (!entity.fireImmune() && entity instanceof LivingEntity livingEntity && EnchantmentHelper.getEnchantmentLevel(
-                level.registryAccess().holderOrThrow(Enchantments.FROST_WALKER), livingEntity) <= 0) {
+        if (!entity.fireImmune()
+                && entity instanceof LivingEntity livingEntity
+                && EnchantmentHelper.getEnchantmentLevel(Enchantments.FROST_WALKER, livingEntity) <= 0) {
+            
             entity.hurt(level.damageSources().hotFloor(), 6.0F);
             entity.setRemainingFireTicks(180);
         }
-
+        
         super.stepOn(level, pos, state, entity);
     }
 }

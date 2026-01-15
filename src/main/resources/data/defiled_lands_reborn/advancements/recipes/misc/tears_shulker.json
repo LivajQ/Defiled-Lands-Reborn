@@ -1,0 +1,61 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gem": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "defiled_lands_reborn:remorseful_gem"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_shell": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:shulker_shell"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "defiled_lands_reborn:tears_shulker"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_umbrium": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "defiled_lands_reborn:umbrium_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_shell",
+      "has_gem",
+      "has_umbrium",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "defiled_lands_reborn:tears_shulker"
+    ]
+  },
+  "sends_telemetry_event": false
+}

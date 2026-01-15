@@ -2,7 +2,7 @@ package com.euphony.defiled_lands_reborn.common.worldgen.features.tree.placer;
 
 import com.euphony.defiled_lands_reborn.common.init.DLTrunkPlacers;
 import com.google.common.collect.Lists;
-import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,8 +19,11 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 public class TenebraTrunkPlacer extends TrunkPlacer {
-    public static final MapCodec<TenebraTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((p_161786_) -> trunkPlacerParts(p_161786_).apply(p_161786_, TenebraTrunkPlacer::new));
-
+    public static final Codec<TenebraTrunkPlacer> CODEC =
+            RecordCodecBuilder.create(instance ->
+                    trunkPlacerParts(instance).apply(instance, TenebraTrunkPlacer::new)
+            );
+    
     public TenebraTrunkPlacer(int baseHeight, int heightRandA, int heightRandB) {
         super(baseHeight, heightRandA, heightRandB);
     }

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "defiled_lands_reborn:defiled_stone_bricks"
+  },
+  "result": "defiled_lands_reborn:defiled_cracked_stone_bricks"
+}

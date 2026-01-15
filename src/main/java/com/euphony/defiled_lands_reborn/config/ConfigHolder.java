@@ -1,21 +1,23 @@
 package com.euphony.defiled_lands_reborn.config;
 
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.common.ModConfigSpec;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class ConfigHolder {
-    static CommonConfig common;
-
-    private static ModConfigSpec configCommonSpec;
-
-    public static void init(ModContainer container, IEventBus modBus) {
-        final Pair<CommonConfig, ModConfigSpec> spec2 = new ModConfigSpec.Builder().configure(CommonConfig::new);
-        common = spec2.getLeft();
-        configCommonSpec = spec2.getRight();
-
-        container.registerConfig(ModConfig.Type.COMMON, ConfigHolder.configCommonSpec);
+    public static CommonConfig common;
+    
+    private static ForgeConfigSpec configCommonSpec;
+    
+    public static void init(ModLoadingContext context, IEventBus modBus) {
+        final Pair<CommonConfig, ForgeConfigSpec> specPair =
+                new ForgeConfigSpec.Builder().configure(CommonConfig::new);
+        
+        common = specPair.getLeft();
+        configCommonSpec = specPair.getRight();
+        
+        context.registerConfig(ModConfig.Type.COMMON, configCommonSpec);
     }
 }

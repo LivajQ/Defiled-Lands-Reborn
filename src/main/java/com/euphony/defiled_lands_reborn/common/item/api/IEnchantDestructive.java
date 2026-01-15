@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack;
 
 public interface IEnchantDestructive {
     default float getDestructiveBonus(RegistryAccess registryAccess, ItemStack stack) {
-        int level = ItemUtils.getEnchantmentLevel(registryAccess, stack, DLEnchantments.DESTRUCTIVE);
+        int level = ItemUtils.getEnchantmentLevel(registryAccess, stack, DLEnchantments.DESTRUCTIVE.getKey());
         if (level > 0) return 1.0F + (level + 1) * 0.25F;
         else return 1.0F;
     }

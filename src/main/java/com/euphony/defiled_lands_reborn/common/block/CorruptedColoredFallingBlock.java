@@ -1,10 +1,16 @@
 package com.euphony.defiled_lands_reborn.common.block;
 
-import net.minecraft.util.ColorRGBA;
-import net.minecraft.world.level.block.ColoredFallingBlock;
+import net.minecraft.world.level.block.FallingBlock;
 
-public class CorruptedColoredFallingBlock extends ColoredFallingBlock {
-    public CorruptedColoredFallingBlock(ColorRGBA dustColor, Properties properties) {
-        super(dustColor, properties);
+public class CorruptedColoredFallingBlock extends FallingBlock {
+    private final int dustColor;
+    
+    public CorruptedColoredFallingBlock(int dustColor, Properties properties) {
+        super(properties);
+        this.dustColor = dustColor;
+    }
+    
+    public int getDustColor() {
+        return dustColor;
     }
 }

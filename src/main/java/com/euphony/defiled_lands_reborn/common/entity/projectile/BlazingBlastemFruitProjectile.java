@@ -13,22 +13,22 @@ public class BlazingBlastemFruitProjectile extends BlastemFruitProjectile {
     public BlazingBlastemFruitProjectile(EntityType<? extends ThrowableItemProjectile> entityType, Level level) {
         super(entityType, level);
     }
-
+    
     @Override
     public ItemStack getItem() {
-        return DLItems.BLAZING_BLASTEM_FRUIT.toStack();
+        return new ItemStack(DLItems.BLAZING_BLASTEM_FRUIT.get());
     }
-
+    
     public BlazingBlastemFruitProjectile(Level level, LivingEntity thrower) {
         super(DLEntities.BLAZING_BLASTEM_FRUIT_PROJECTILE.get(), level, thrower);
         damage = 10.0F;
         explosion = 1.5F;
         destructive = true;
     }
-
+    
     @Override
     protected void onHitBlock(BlockHitResult result) {
         level().explode(this, getX(), getY(), getZ(), explosion, true,
-                this.destructive ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.TRIGGER);
+                this.destructive ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.NONE);
     }
 }

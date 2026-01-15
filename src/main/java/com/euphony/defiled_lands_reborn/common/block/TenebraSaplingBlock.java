@@ -1,16 +1,16 @@
 package com.euphony.defiled_lands_reborn.common.block;
 
 import com.euphony.defiled_lands_reborn.common.init.DLBlocks;
+import com.euphony.defiled_lands_reborn.common.worldgen.features.tree.TenebraTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class TenebraSaplingBlock extends SaplingBlock {
-    public TenebraSaplingBlock(TreeGrower treeGrower, Properties properties) {
-        super(treeGrower, properties);
+    public TenebraSaplingBlock(Properties props) {
+        super(new TenebraTreeGrower(), props);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class TenebraSaplingBlock extends SaplingBlock {
     }
 
     @Override
-    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         return this.mayPlaceOn(state, level, pos);
     }
 }
