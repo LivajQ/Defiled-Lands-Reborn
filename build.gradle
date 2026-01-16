@@ -1,8 +1,9 @@
 plugins {
-    id 'java'
+    id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version "${forge_gradle_version}"
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'org.spongepowered.mixin' version '[0.7,0.8)'
 }
 
 version = mod_version
@@ -61,9 +62,15 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf("curse.maven:jei-${jei_version}")
     implementation fg.deobf("curse.maven:terrablender-${terrablender_version}")
     implementation fg.deobf("curse.maven:curios-${curios_version}")
+}
+
+mixin {
+    add sourceSets.main, "defiled_lands_reborn.refmap.json"
+    config 'mixins.defiled_lands_reborn.json'
 }
 
 tasks.named('processResources', ProcessResources).configure {

@@ -5,7 +5,10 @@ import com.euphony.defiled_lands_reborn.client.model.BookWyrmModel;
 import com.euphony.defiled_lands_reborn.client.renderer.*;
 import com.euphony.defiled_lands_reborn.client.renderer.boss.DestroyerBossRenderer;
 import com.euphony.defiled_lands_reborn.client.renderer.boss.MournerBossRenderer;
+import com.euphony.defiled_lands_reborn.common.init.DLBlocks;
 import com.euphony.defiled_lands_reborn.common.init.DLEntities;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -31,6 +34,12 @@ public class ClientHandler {
         event.registerEntityRenderer(DLEntities.RAVAGER_PROJECTILE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(DLEntities.BLASTEM_FRUIT_PROJECTILE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(DLEntities.BLAZING_BLASTEM_FRUIT_PROJECTILE.get(), ThrownItemRenderer::new);
+        
+        ItemBlockRenderTypes.setRenderLayer(DLBlocks.VILESPINE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(DLBlocks.BLASTEM.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(DLBlocks.SCURONOTTE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(DLBlocks.TENEBRA_SAPLING.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(DLBlocks.TENEBRA_DOOR.get(), RenderType.cutout());
     }
     
     @SubscribeEvent

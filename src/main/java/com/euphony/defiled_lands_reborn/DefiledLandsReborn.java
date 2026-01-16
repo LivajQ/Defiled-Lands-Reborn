@@ -6,7 +6,6 @@ import com.euphony.defiled_lands_reborn.common.worldgen.DLSurfaceRuleData;
 import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import com.euphony.defiled_lands_reborn.integration.curios.CuriosCompat;
 import com.euphony.defiled_lands_reborn.utils.Utils;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;

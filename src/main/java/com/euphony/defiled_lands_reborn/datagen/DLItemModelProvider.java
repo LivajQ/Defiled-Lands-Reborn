@@ -1,12 +1,14 @@
 package com.euphony.defiled_lands_reborn.datagen;
 
 import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.common.init.DLBlocks;
 import com.euphony.defiled_lands_reborn.common.init.DLItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 
 public class DLItemModelProvider extends ItemModelProvider {
     
@@ -87,10 +89,14 @@ public class DLItemModelProvider extends ItemModelProvider {
         basicItem(DLItems.UMBRIUM_INGOT.get());
         basicItem(DLItems.UMBRIUM_NUGGET.get());
         basicItem(DLItems.UMBRIUM_PELLET.get());
-
-        //DLItems.SPAWN_EGGS.forEach(egg -> basicItem(egg.get()));
+        
+        basicItem(DLBlocks.TENEBRA_DOOR.get().asItem());
+        
+        for (RegistryObject<Item> egg : DLItems.SPAWN_EGGS) {
+            withExistingParent(egg.getId().getPath(), mcLoc("item/template_spawn_egg"));
+        }
     }
-    
+
     private void handheld(Item item) {
         getBuilder(BuiltInRegistries.ITEM.getKey(item).getPath())
                 .parent(getExistingFile(mcLoc("item/handheld")))

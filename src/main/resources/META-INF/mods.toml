@@ -30,6 +30,6 @@ side = "BOTH"
 modId = "terrablender"
 mandatory=true
 type = "required"
-versionRange = ">=4.1"
+versionRange = "[0,)"
 ordering = "NONE"
 side = "BOTH"
