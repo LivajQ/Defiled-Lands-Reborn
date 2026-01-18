@@ -14,21 +14,21 @@ import net.minecraft.world.level.block.state.BlockState;
 public class CorruptionUtils {
     
     public static void spread(Level level, BlockPos pos, BlockState state, RandomSource rand) {
-        if (!level.isClientSide()) {
-            if (canSpread(level, pos, rand) && rand.nextInt(3) == 0) {
-                for (int i = 0; i < 4; ++i) {
-                    BlockPos targetPos = pos.offset(
-                            rand.nextInt(5) - 2,
-                            rand.nextInt(5) - 2,
-                            rand.nextInt(5) - 2
-                    );
-
-                    if (targetPos.getY() > -60 && targetPos.getY() < 320 && level.isLoaded(targetPos)) return;
-                    
-                    
-                    BlockState targetState = level.getBlockState(targetPos);
-                    corrupt(level, targetPos, targetState);
-                }
+        if (level.isClientSide()) return;
+        
+        if (canSpread(level, pos, rand) && rand.nextInt(3) == 0) {
+            for (int i = 0; i < 4; ++i) {
+                BlockPos targetPos = pos.offset(
+                        rand.nextInt(5) - 2,
+                        rand.nextInt(5) - 2,
+                        rand.nextInt(5) - 2
+                );
+                
+                if (targetPos.getY() <= -60 || targetPos.getY() >= 320) continue;
+                if (!level.isLoaded(targetPos)) continue;
+                
+                BlockState targetState = level.getBlockState(targetPos);
+                corrupt(level, targetPos, targetState);
             }
         }
     }
@@ -39,11 +39,18 @@ public class CorruptionUtils {
     }
     
     public static boolean corrupt(Level level, BlockPos pos, BlockState state) {
-        Block result = DLCorruptionData.getResult(state.getBlock());
+        Block block = state.getBlock();
+        
+        if (isAlreadyDefiled(block)) return false;
+        
+        Block result = DLCorruptionData.getResult(block);
         if (result == null) return false;
         
         level.setBlockAndUpdate(pos, result.defaultBlockState());
         return true;
     }
+    
+    public static boolean isAlreadyDefiled(Block block) {
+        return DLCorruptionData.getDefiledTargets().contains(block);
+    }
 }
-

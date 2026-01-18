@@ -1,23 +1,23 @@
 {
-  "book_wyrm.idle": {
+  "entity.bookwyrm.idle": {
     "category": "neutral",
     "sounds": [
-      "defiledlands:bookwyrm/idle1",
-      "defiledlands:bookwyrm/idle2",
-      "defiledlands:bookwyrm/idle3",
-      "defiledlands:bookwyrm/idle4"
+      "defiled_lands_reborn:bookwyrm/idle1",
+      "defiled_lands_reborn:bookwyrm/idle2",
+      "defiled_lands_reborn:bookwyrm/idle3",
+      "defiled_lands_reborn:bookwyrm/idle4"
     ]
   },
-  "book_wyrm.hurt": {
+  "entity.bookwyrm.hurt": {
     "category": "neutral",
     "sounds": [
-      "defiledlands:bookwyrm/hurt"
+      "defiled_lands_reborn:bookwyrm/hurt"
     ]
   },
-  "book_wyrm.death": {
+  "entity.bookwyrm.death": {
     "category": "neutral",
     "sounds": [
-      "defiledlands:bookwyrm/death"
+      "defiled_lands_reborn:bookwyrm/death"
     ]
   }
 }

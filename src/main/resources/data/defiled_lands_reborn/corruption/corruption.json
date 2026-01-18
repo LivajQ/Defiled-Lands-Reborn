@@ -1,0 +1,26 @@
+{
+  "minecraft:grass_block": "defiled_lands_reborn:defiled_grass_block",
+
+  "minecraft:coal_ore": "defiled_lands_reborn:hephaestite_ore",
+  "minecraft:coal_block": "defiled_lands_reborn:hephaestite_block",
+
+  "minecraft:iron_ore": "defiled_lands_reborn:umbrium_ore",
+  "minecraft:iron_block": "defiled_lands_reborn:umbrium_block",
+
+  "minecraft:diamond_ore": "defiled_lands_reborn:scarlite_ore",
+  "minecraft:diamond_block": "defiled_lands_reborn:scarlite_block",
+
+  "#minecraft:stone": "defiled_lands_reborn:defiled_stone",
+  "#minecraft:sand": "defiled_lands_reborn:defiled_sand",
+  "#minecraft:sandstone": "defiled_lands_reborn:defiled_sandstone",
+  "#minecraft:dirt": "defiled_lands_reborn:defiled_dirt",
+  "#minecraft:gravel": "defiled_lands_reborn:defiled_gravel",
+
+  "#minecraft:glass": "defiled_lands_reborn:obscure_glass",
+  "#minecraft:stained_glass": "defiled_lands_reborn:obscure_glass",
+
+  "#minecraft:stone_bricks": "defiled_lands_reborn:defiled_stone_bricks",
+  "#minecraft:mossy_stone_bricks": "defiled_lands_reborn:defiled_mossy_stone_bricks",
+
+  "#minecraft:mossy_cobblestone": "defiled_lands_reborn:defiled_mossy_stone"
+}

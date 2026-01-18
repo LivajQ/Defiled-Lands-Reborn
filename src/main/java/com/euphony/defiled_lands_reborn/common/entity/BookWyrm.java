@@ -3,6 +3,7 @@ package com.euphony.defiled_lands_reborn.common.entity;
 import com.euphony.defiled_lands_reborn.common.init.DLEntities;
 import com.euphony.defiled_lands_reborn.common.init.DLItems;
 import com.euphony.defiled_lands_reborn.common.init.DLSounds;
+import com.euphony.defiled_lands_reborn.common.tag.DLBlockTags;
 import com.euphony.defiled_lands_reborn.config.ConfigHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -32,6 +33,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -93,7 +95,7 @@ public class BookWyrm extends Animal {
             if (digestTimer <= 0) digestTimer = digestingTime;
             
             stack.shrink(1);
-            playSound(SoundEvents.GENERIC_EAT, 1, 1);
+            playSound(SoundEvents.PLAYER_BURP, 1, 1);
             return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, hand);
@@ -106,9 +108,9 @@ public class BookWyrm extends Animal {
         for (EnchantmentInstance e : enchantmentInstances) {
             stack.enchant(e.enchantment, e.level);
         }
-        playSound(DLSounds.WYRM_BOOK.get(), 1, 1);
+        playSound(SoundEvents.PLAYER_LEVELUP, 1, 1);
+        playSound(SoundEvents.CHICKEN_EGG, 1, 1);
         spawnAtLocation(stack);
-        
     }
     
     public List<EnchantmentInstance> getPossibleEnchantments() {
@@ -164,6 +166,10 @@ public class BookWyrm extends Animal {
         int maxTime = Math.max(a.digestingTime, b.digestingTime);
         int k = a.digestingTime + b.digestingTime - rand.nextInt((int)(maxTime + 0.75));
         child.digestingTime = k / 2;
+    }
+    
+    public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> p_218105_, LevelAccessor p_218106_, MobSpawnType p_218107_, BlockPos p_218108_, RandomSource p_218109_) {
+        return p_218106_.getBlockState(p_218108_.below()).is(DLBlockTags.BASE_DEFILED_SURFACE) && isBrightEnoughToSpawn(p_218106_, p_218108_);
     }
 
     @Override

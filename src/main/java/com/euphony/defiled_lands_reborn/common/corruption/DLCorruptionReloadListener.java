@@ -18,14 +18,11 @@ import java.util.Map;
 public class DLCorruptionReloadListener extends SimpleJsonResourceReloadListener {
     
     public DLCorruptionReloadListener() {
-        super(new Gson(), "corruption"); // loads data/<namespace>/corruption/*.json
+        super(new Gson(), "corruption");
     }
     
     @Override
-    protected void apply(Map<ResourceLocation, JsonElement> jsons,
-                         ResourceManager resourceManager,
-                         ProfilerFiller profiler) {
-        
+    protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager resourceManager, ProfilerFiller profiler) {
         DLCorruptionData.clear();
         
         for (JsonElement element : jsons.values()) {
@@ -61,5 +58,6 @@ public class DLCorruptionReloadListener extends SimpleJsonResourceReloadListener
                 }
             }
         }
+        DLCorruptionData.sync();
     }
 }

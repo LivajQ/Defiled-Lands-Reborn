@@ -14,9 +14,9 @@ public class DLSounds {
     public static final RegistryObject<SoundEvent> WYRM_IDLE = register("entity.bookwyrm.idle");
     public static final RegistryObject<SoundEvent> WYRM_HURT = register("entity.bookwyrm.hurt");
     public static final RegistryObject<SoundEvent> WYRM_DEATH = register("entity.bookwyrm.death");
-    public static final RegistryObject<SoundEvent> WYRM_BOOK = register("entity.bookwyrm.book");
-    public static final RegistryObject<SoundEvent> WYRM_INDIGESTION = register("entity.bookwyrm.indigestion");
-    public static final RegistryObject<SoundEvent> MUTAGEN = register("item.wyrmutagen.use");
+    //public static final RegistryObject<SoundEvent> WYRM_BOOK = register("entity.bookwyrm.book");
+    //public static final RegistryObject<SoundEvent> WYRM_INDIGESTION = register("entity.bookwyrm.indigestion");
+    //public static final RegistryObject<SoundEvent> MUTAGEN = register("item.wyrmutagen.use");
     
     private static RegistryObject<SoundEvent> register(String name) {
         ResourceLocation id = Utils.prefix(name);

@@ -22,7 +22,7 @@ public class BlastemFruitProjectile extends ThrowableItemProjectile implements I
     public BlastemFruitProjectile(EntityType<? extends ThrowableItemProjectile> type, Level level) {
         super(type, level);
         damage = 7.0F;
-        explosion = 1.0F;
+        explosion = 1.5F;
         destructive = true;
     }
     
@@ -30,7 +30,7 @@ public class BlastemFruitProjectile extends ThrowableItemProjectile implements I
         super(DLEntities.BLASTEM_FRUIT_PROJECTILE.get(), thrower, level);
         this.setItem(new ItemStack(DLItems.BLASTEM_FRUIT.get()));
         damage = 7.0F;
-        explosion = 1.0F;
+        explosion = 1.5F;
         destructive = true;
     }
     
@@ -38,7 +38,7 @@ public class BlastemFruitProjectile extends ThrowableItemProjectile implements I
         super(type, thrower, level);
         this.setItem(new ItemStack(DLItems.BLASTEM_FRUIT.get()));
         damage = 7.0F;
-        explosion = 1.0F;
+        explosion = 1.5F;
         destructive = true;
     }
     
@@ -63,6 +63,8 @@ public class BlastemFruitProjectile extends ThrowableItemProjectile implements I
     @Override
     protected void onHitEntity(EntityHitResult result) {
         result.getEntity().hurt(damageSources().thrown(this, this.getOwner()), damage);
+        level().explode(this, getX(), getY(), getZ(), explosion, false,
+                this.destructive ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.NONE);
     }
     
     @Override
