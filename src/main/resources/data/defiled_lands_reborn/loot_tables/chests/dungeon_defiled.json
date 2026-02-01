@@ -275,7 +275,7 @@
         },
         {
           "type": "item",
-          "name": "defiled_lands_reborn:book_wyrm_raw",
+          "name": "defiled_lands_reborn:raw_book_wyrm",
           "weight": 15,
           "functions": [
             {
@@ -303,7 +303,7 @@
         },
         {
           "type": "item",
-          "name": "defiled_lands_reborn:book_wyrm_scale_golden",
+          "name": "defiled_lands_reborn:golden_book_wyrm_scale",
           "weight": 1,
           "functions": [
             {
@@ -382,7 +382,7 @@
         },
         {
           "type": "item",
-          "name": "defiled_lands_reborn:hephaestite",
+          "name": "defiled_lands_reborn:hephaestite_shard",
           "weight": 15,
           "functions": [
             {

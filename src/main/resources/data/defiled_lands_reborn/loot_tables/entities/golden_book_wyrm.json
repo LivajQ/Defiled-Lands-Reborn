@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "defiled_lands_reborn:foul_slime"
+          "name": "defiled_lands_reborn:golden_book_wyrm_scale"
         }
       ],
       "functions": [
@@ -14,19 +14,18 @@
           "add": false,
           "count": {
             "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.0
+            "min": 0.0,
+            "max": 2.0
           },
           "function": "minecraft:set_count"
         },
         {
+          "function": "minecraft:looting_enchant",
           "count": {
             "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": 0.0
-          },
-          "enchantment": "minecraft:looting",
-          "function": "minecraft:enchanted_count_increase"
+            "min": 0.0,
+            "max": 1.0
+          }
         }
       ],
       "rolls": 1.0
@@ -36,7 +35,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:rotten_flesh"
+          "name": "defiled_lands_reborn:raw_book_wyrm"
         }
       ],
       "functions": [
@@ -44,23 +43,34 @@
           "add": false,
           "count": {
             "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.0
+            "min": 0.0,
+            "max": 2.0
           },
           "function": "minecraft:set_count"
         },
         {
+          "function": "minecraft:looting_enchant",
           "count": {
             "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": 0.0
-          },
-          "enchantment": "minecraft:looting",
-          "function": "minecraft:enchanted_count_increase"
+            "min": 0.0,
+            "max": 1.0
+          }
+        },
+        {
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "flags": { "is_on_fire": true }
+              }
+            }
+          ],
+          "function": "minecraft:furnace_smelt"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "defiled_lands_reborn:entities/host"
+  "random_sequence": "defiled_lands_reborn:entities/golden_book_wyrm"
 }

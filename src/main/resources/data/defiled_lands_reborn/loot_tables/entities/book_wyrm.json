@@ -1,0 +1,76 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "defiled_lands_reborn:book_wyrm_scale"
+        }
+      ],
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 0.0,
+            "max": 2.0
+          },
+          "function": "minecraft:set_count"
+        },
+        {
+          "function": "minecraft:looting_enchant",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 0.0,
+            "max": 1.0
+          }
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "defiled_lands_reborn:raw_book_wyrm"
+        }
+      ],
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 0.0,
+            "max": 2.0
+          },
+          "function": "minecraft:set_count"
+        },
+        {
+          "function": "minecraft:looting_enchant",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 0.0,
+            "max": 1.0
+          }
+        },
+        {
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "flags": { "is_on_fire": true }
+              }
+            }
+          ],
+          "function": "minecraft:furnace_smelt"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "defiled_lands_reborn:entities/book_wyrm"
+}

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "defiled_lands_reborn:ravaging_essence"
+          "name": "defiled_lands_reborn:remorseful_essence"
         }
       ],
       "functions": [
@@ -31,19 +31,18 @@
           "add": false,
           "count": {
             "type": "minecraft:uniform",
-            "max": 16.0,
-            "min": 4.0
+            "min": 4.0,
+            "max": 16.0
           },
           "function": "minecraft:set_count"
         },
         {
+          "function": "minecraft:looting_enchant",
           "count": {
             "type": "minecraft:uniform",
-            "max": 4.0,
-            "min": 0.0
-          },
-          "enchantment": "minecraft:looting",
-          "function": "minecraft:enchanted_count_increase"
+            "min": 0.0,
+            "max": 4.0
+          }
         }
       ],
       "rolls": 1.0
@@ -61,23 +60,51 @@
           "add": false,
           "count": {
             "type": "minecraft:uniform",
-            "max": 16.0,
-            "min": 8.0
+            "min": 8.0,
+            "max": 16.0
           },
           "function": "minecraft:set_count"
         },
         {
+          "function": "minecraft:looting_enchant",
           "count": {
             "type": "minecraft:uniform",
-            "max": 4.0,
-            "min": 0.0
+            "min": 0.0,
+            "max": 4.0
+          }
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "defiled_lands_reborn:scarlite"
+        }
+      ],
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 4.0,
+            "max": 8.0
           },
-          "enchantment": "minecraft:looting",
-          "function": "minecraft:enchanted_count_increase"
+          "function": "minecraft:set_count"
+        },
+        {
+          "function": "minecraft:looting_enchant",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 0.0,
+            "max": 2.0
+          }
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "defiled_lands_reborn:entities/the_destroyer"
+  "random_sequence": "defiled_lands_reborn:entities/the_mourner"
 }

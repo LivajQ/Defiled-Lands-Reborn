@@ -1,0 +1,55 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        { "condition": "minecraft:killed_by_player" },
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.5
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "defiled_lands_reborn:black_heart"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        { "condition": "minecraft:killed_by_player" },
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.17
+        },
+        {
+          "condition": "minecraft:entity_properties",
+          "entity": "killer_player",
+          "predicate": {
+            "equipment": {
+              "mainhand": {
+                "predicates": {
+                  "minecraft:enchantments": [
+                    { "enchantments": "minecraft:looting" }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "defiled_lands_reborn:black_heart"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "defiled_lands_reborn:entities/twisted_shambler"
+}

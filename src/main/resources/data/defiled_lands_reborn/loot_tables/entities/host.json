@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "defiled_lands_reborn:scuttler_eye"
+          "name": "defiled_lands_reborn:foul_slime"
         }
       ],
       "functions": [
@@ -14,34 +14,28 @@
           "add": false,
           "count": {
             "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.0
+            "min": 0.0,
+            "max": 2.0
           },
           "function": "minecraft:set_count"
         },
         {
+          "function": "minecraft:looting_enchant",
           "count": {
             "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": 0.0
-          },
-          "enchantment": "minecraft:looting",
-          "function": "minecraft:enchanted_count_increase"
+            "min": 0.0,
+            "max": 1.0
+          }
         }
       ],
       "rolls": 1.0
     },
     {
       "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:killed_by_player"
-        }
-      ],
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:string"
+          "name": "minecraft:rotten_flesh"
         }
       ],
       "functions": [
@@ -49,23 +43,22 @@
           "add": false,
           "count": {
             "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": -1.0
+            "min": 0.0,
+            "max": 2.0
           },
           "function": "minecraft:set_count"
         },
         {
+          "function": "minecraft:looting_enchant",
           "count": {
             "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": 0.0
-          },
-          "enchantment": "minecraft:looting",
-          "function": "minecraft:enchanted_count_increase"
+            "min": 0.0,
+            "max": 1.0
+          }
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "defiled_lands_reborn:entities/scuttler"
+  "random_sequence": "defiled_lands_reborn:entities/host"
 }
