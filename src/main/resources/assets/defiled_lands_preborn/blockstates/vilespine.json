@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "topmost=false": { "model": "defiled_lands_preborn:block/vilespine_part" },
+    "topmost=true":  { "model": "defiled_lands_preborn:block/vilespine_top" }
+  }
+}

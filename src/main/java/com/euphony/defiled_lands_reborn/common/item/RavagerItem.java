@@ -93,6 +93,6 @@ public class RavagerItem extends GunItem {
     
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-        ItemUtils.addTooltip(tooltip::add, "item.defiled_lands_reborn.the_ravager.tooltip");
+        ItemUtils.addTooltip(tooltip::add, "item.defiled_lands_preborn.the_ravager.tooltip");
     }
 }

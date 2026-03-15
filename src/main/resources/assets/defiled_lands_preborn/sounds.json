@@ -1,0 +1,23 @@
+{
+  "entity.bookwyrm.idle": {
+    "category": "neutral",
+    "sounds": [
+      "defiled_lands_preborn:bookwyrm/idle1",
+      "defiled_lands_preborn:bookwyrm/idle2",
+      "defiled_lands_preborn:bookwyrm/idle3",
+      "defiled_lands_preborn:bookwyrm/idle4"
+    ]
+  },
+  "entity.bookwyrm.hurt": {
+    "category": "neutral",
+    "sounds": [
+      "defiled_lands_preborn:bookwyrm/hurt"
+    ]
+  },
+  "entity.bookwyrm.death": {
+    "category": "neutral",
+    "sounds": [
+      "defiled_lands_preborn:bookwyrm/death"
+    ]
+  }
+}

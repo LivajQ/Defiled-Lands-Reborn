@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "defiled_lands_preborn:umbrium_pellet"
+    },
+    "V": {
+      "item": "defiled_lands_preborn:vilespine"
+    }
+  },
+  "pattern": [
+    "V V",
+    " S ",
+    "V V"
+  ],
+  "result": {
+    "item": "defiled_lands_preborn:spiked_pellet"
+  },
+  "show_notification": true
+}

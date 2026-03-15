@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.common.init;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.worldgen.features.AltarFeature;
 import com.euphony.defiled_lands_reborn.common.worldgen.features.VilespineConfiguration;
 import com.euphony.defiled_lands_reborn.common.worldgen.features.VilespineFeature;
@@ -13,7 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class DLFeatures {
     
     public static final DeferredRegister<Feature<?>> FEATURES =
-            DeferredRegister.create(ForgeRegistries.FEATURES, DefiledLandsReborn.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.FEATURES, DefiledLandsPreborn.MOD_ID);
     
     public static final RegistryObject<Feature<VilespineConfiguration>> VILESPINE =
             FEATURES.register("vilespine", () -> new VilespineFeature(VilespineConfiguration.CODEC));

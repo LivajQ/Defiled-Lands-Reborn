@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.datagen;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.datagen.tag.BlockTagGenerator;
 import com.euphony.defiled_lands_reborn.datagen.tag.ItemTagGenerator;
 import net.minecraft.data.DataGenerator;
@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.Map;
 
-@Mod.EventBusSubscriber(modid = DefiledLandsReborn.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = DefiledLandsPreborn.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DLDataGenerator {
     
     @SubscribeEvent

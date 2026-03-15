@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "defiled_lands_preborn:hephaestite_shard"
+    },
+    "title": {
+      "translate": "advancements.defiled_lands_preborn.hephaestite_shard.title"
+    },
+    "description": {
+      "translate": "advancements.defiled_lands_preborn.hephaestite_shard.description"
+    }
+  },
+  "parent": "defiled_lands_preborn:root",
+  "criteria": {
+    "hephaestite_shard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "defiled_lands_preborn:hephaestite_shard"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "defiled_lands_preborn:scarlite"
+    },
+    "S": {
+      "item": "defiled_lands_preborn:black_heart"
+    },
+    "X": {
+      "item": "defiled_lands_preborn:umbrium_ingot"
+    }
+  },
+  "pattern": [
+    "#X ",
+    "XSX",
+    " X "
+  ],
+  "result": {
+    "item": "defiled_lands_preborn:scarlite_ring"
+  },
+  "show_notification": true
+}

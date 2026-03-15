@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.common.init;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.enchantment.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.registries.DeferredRegister;
@@ -9,7 +9,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class DLEnchantments {
     
-    public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, DefiledLandsReborn.MOD_ID);
+    public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, DefiledLandsPreborn.MOD_ID);
     
     public static final RegistryObject<Enchantment> SHARP_SHOOTER = ENCHANTMENTS.register("sharp_shooter", EnchantmentSharpshooter::new);
     

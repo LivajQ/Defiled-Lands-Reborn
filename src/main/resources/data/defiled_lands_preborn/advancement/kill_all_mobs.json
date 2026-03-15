@@ -1,0 +1,60 @@
+{
+  "display": {
+    "icon": {
+      "id": "defiled_lands_preborn:umbrium_sword"
+    },
+    "title": {
+      "translate": "advancements.defiled_lands_preborn.kill_all_mobs.title"
+    },
+    "description": {
+      "translate": "advancements.defiled_lands_preborn.kill_all_mobs.description"
+    },
+    "frame": "challenge"
+  },
+  "parent": "defiled_lands_preborn:root",
+  "rewards": {
+    "experience": 100
+  },
+  "criteria": {
+    "shambler": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "defiled_lands_preborn:shambler"
+        }
+      }
+    },
+    "shambler_twisted": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "defiled_lands_preborn:twisted_shambler"
+        }
+      }
+    },
+    "scuttler": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "defiled_lands_preborn:scuttler"
+        }
+      }
+    },
+    "host": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "defiled_lands_preborn:host"
+        }
+      }
+    },
+    "slime_defiled": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "defiled_lands_preborn:defiled_slime"
+        }
+      }
+    }
+  }
+}

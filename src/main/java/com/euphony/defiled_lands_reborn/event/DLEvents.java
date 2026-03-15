@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.event;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.corruption.DLCorruptionReloadListener;
 import com.euphony.defiled_lands_reborn.common.entity.projectile.BlastemFruitProjectile;
 import com.euphony.defiled_lands_reborn.common.init.DLBlocks;
@@ -28,7 +28,7 @@ import java.util.List;
 
 import static com.euphony.defiled_lands_reborn.utils.ItemUtils.addTooltip;
 
-@Mod.EventBusSubscriber(modid = DefiledLandsReborn.MOD_ID)
+@Mod.EventBusSubscriber(modid = DefiledLandsPreborn.MOD_ID)
 public class DLEvents {
     
     @SubscribeEvent
@@ -37,25 +37,25 @@ public class DLEvents {
         List<Component> components = event.getToolTip();
         
         if (stack.is(DLItems.PHYTOPROSTASIA_AMULET.get())) {
-            addTooltip(components, "item.defiled_lands_reborn.phytoprostasia_amulet.tooltip");
+            addTooltip(components, "item.defiled_lands_preborn.phytoprostasia_amulet.tooltip");
         } else if (stack.is(DLItems.RAVAGING_PELLET.get())) {
-            addTooltip(components, "item.defiled_lands_reborn.ravaging_pellet.tooltip");
+            addTooltip(components, "item.defiled_lands_preborn.ravaging_pellet.tooltip");
         } else if (stack.is(DLItems.IDOL_SORROW.get())) {
-            addTooltip(components, "item.defiled_lands_reborn.idol_sorrow.tooltip");
+            addTooltip(components, "item.defiled_lands_preborn.idol_sorrow.tooltip");
         } else if (stack.is(DLItems.SPIKED_PELLET.get())) {
-            addTooltip(components, "item.defiled_lands_reborn.spiked_pellet.tooltip");
+            addTooltip(components, "item.defiled_lands_preborn.spiked_pellet.tooltip");
         } else if (stack.is(DLItems.CALLING_STONE.get())) {
-            addTooltip(components, "item.defiled_lands_reborn.calling_stone.tooltip");
+            addTooltip(components, "item.defiled_lands_preborn.calling_stone.tooltip");
         } else if (stack.is(DLItems.RAVAGING_AXE.get())) {
-            addTooltip(components, "item.defiled_lands_reborn.ravaging_axe.tooltip");
+            addTooltip(components, "item.defiled_lands_preborn.ravaging_axe.tooltip");
         } else if (stack.is(DLItems.RAVAGING_PICKAXE.get())) {
-            addTooltip(components, "item.defiled_lands_reborn.ravaging_pickaxe.tooltip");
+            addTooltip(components, "item.defiled_lands_preborn.ravaging_pickaxe.tooltip");
         } else if (stack.is(DLItems.RAVAGING_SHOVEL.get())) {
-            addTooltip(components, "item.defiled_lands_reborn.ravaging_shovel.tooltip");
+            addTooltip(components, "item.defiled_lands_preborn.ravaging_shovel.tooltip");
         } else if (stack.is(DLBlocks.HEPHAESTITE_BLOCK.get().asItem())) {
-            addTooltip(components, "block.defiled_lands_reborn.hephaestite_block.tooltip");
+            addTooltip(components, "block.defiled_lands_preborn.hephaestite_block.tooltip");
         } else if (stack.is(DLBlocks.HEPHAESTITE_ORE.get().asItem())) {
-            addTooltip(components, "block.defiled_lands_reborn.hephaestite_ore.tooltip");
+            addTooltip(components, "block.defiled_lands_preborn.hephaestite_ore.tooltip");
         }
         
     }

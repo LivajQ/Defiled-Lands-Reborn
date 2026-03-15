@@ -77,7 +77,7 @@ public abstract class TearsItem extends Item {
     
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-        ItemUtils.addTooltip(tooltip::add, "item.defiled_lands_reborn." + getItemName() + ".tooltip");
+        ItemUtils.addTooltip(tooltip::add, "item.defiled_lands_preborn." + getItemName() + ".tooltip");
     }
     
     public static class Flame extends TearsItem {

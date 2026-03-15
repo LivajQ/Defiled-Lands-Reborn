@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.client;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.client.model.BookWyrmModel;
 import com.euphony.defiled_lands_reborn.client.renderer.*;
 import com.euphony.defiled_lands_reborn.client.renderer.boss.DestroyerBossRenderer;
@@ -15,7 +15,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 
-@Mod.EventBusSubscriber(modid = DefiledLandsReborn.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = DefiledLandsPreborn.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientHandler {
     
     @SubscribeEvent

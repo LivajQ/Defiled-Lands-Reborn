@@ -73,6 +73,6 @@ public class ScarliteRazorItem extends Item {
     
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-        ItemUtils.addTooltip(tooltip::add, "item.defiled_lands_reborn.scarlite_razor.tooltip");
+        ItemUtils.addTooltip(tooltip::add, "item.defiled_lands_preborn.scarlite_razor.tooltip");
     }
 }

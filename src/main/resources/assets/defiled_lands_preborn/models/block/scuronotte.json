@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "defiled_lands_preborn:block/scuronotte"
+  }
+}

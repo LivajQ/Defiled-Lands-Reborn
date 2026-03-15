@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.common.init;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.block.*;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
@@ -17,7 +17,7 @@ import java.util.function.Function;
 public class DLBlocks {
     
     public static final DeferredRegister<Block> BLOCKS =
-            DeferredRegister.create(ForgeRegistries.BLOCKS, DefiledLandsReborn.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.BLOCKS, DefiledLandsPreborn.MOD_ID);
     
     // Forge requires BlockSetType to be registered statically
     public static final BlockSetType TENEBRA_BLOCK_SET = new BlockSetType("tenebra");

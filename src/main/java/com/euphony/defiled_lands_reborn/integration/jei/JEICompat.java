@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.integration.jei;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.init.DLItems;
 import com.euphony.defiled_lands_reborn.integration.RecipeViewerMap;
 import com.euphony.defiled_lands_reborn.integration.jei.category.CorruptionCategory;
@@ -44,6 +44,6 @@ public class JEICompat implements IModPlugin {
     
     @Override
     public @NotNull ResourceLocation getPluginUid() {
-        return new ResourceLocation(DefiledLandsReborn.MOD_ID, "jei_plugin");
+        return new ResourceLocation(DefiledLandsPreborn.MOD_ID, "jei_plugin");
     }
 }

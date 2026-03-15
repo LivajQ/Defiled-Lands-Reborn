@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": {
+      "item": "defiled_lands_preborn:hephaestite_block"
+    },
+    "R": {
+      "item": "defiled_lands_preborn:remorseful_gem"
+    },
+    "U": {
+      "item": "defiled_lands_preborn:umbrium_ingot"
+    }
+  },
+  "pattern": [
+    "MRM",
+    " U ",
+    " U "
+  ],
+  "result": {
+    "item": "defiled_lands_preborn:tears_flame"
+  },
+  "show_notification": true
+}

@@ -739,6 +739,6 @@ public class RecipeGenerator extends RecipeProvider {
     }
     
     private ResourceLocation createKey(String name) {
-        return new ResourceLocation("defiled_lands_reborn", name);
+        return new ResourceLocation("defiled_lands_preborn", name);
     }
 }

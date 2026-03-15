@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "defiled_lands_preborn:umbrium_ingot"
+    },
+    "P": {
+      "item": "defiled_lands_preborn:black_heart"
+    },
+    "S": {
+      "item": "defiled_lands_preborn:defiled_stone"
+    },
+    "X": {
+      "item": "defiled_lands_preborn:scarlite"
+    }
+  },
+  "pattern": [
+    "#X#",
+    "SPS"
+  ],
+  "result": {
+    "item": "defiled_lands_preborn:healing_pad"
+  },
+  "show_notification": true
+}

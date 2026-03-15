@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.common.init;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.entity.*;
 import com.euphony.defiled_lands_reborn.common.entity.boss.DestroyerBoss;
 import com.euphony.defiled_lands_reborn.common.entity.boss.MournerBoss;
@@ -23,11 +23,11 @@ import net.minecraftforge.registries.*;
 
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(modid = DefiledLandsReborn.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = DefiledLandsPreborn.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DLEntities {
     
     public static final DeferredRegister<EntityType<?>> ENTITIES =
-            DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, DefiledLandsReborn.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, DefiledLandsPreborn.MOD_ID);
     
     // -------------------------
     // ENTITY REGISTRATION

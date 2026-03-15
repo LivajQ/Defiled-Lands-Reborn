@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.datagen.tag;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.init.DLBlocks;
 import com.euphony.defiled_lands_reborn.common.tag.DLBlockTags;
 import net.minecraft.core.HolderLookup;
@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 public class BlockTagGenerator extends BlockTagsProvider {
     
     public BlockTagGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, DefiledLandsReborn.MOD_ID, existingFileHelper);
+        super(output, lookupProvider, DefiledLandsPreborn.MOD_ID, existingFileHelper);
     }
     
     @Override

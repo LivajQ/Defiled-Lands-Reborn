@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "defiled_lands_preborn:scarlite"
+    },
+    "title": {
+      "translate": "advancements.defiled_lands_preborn.scarlite.title"
+    },
+    "description": {
+      "translate": "advancements.defiled_lands_preborn.scarlite.description"
+    }
+  },
+  "parent": "defiled_lands_preborn:umbrium",
+  "criteria": {
+    "scarlite": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "defiled_lands_preborn:scarlite"
+          }
+        ]
+      }
+    }
+  }
+}

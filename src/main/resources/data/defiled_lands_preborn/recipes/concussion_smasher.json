@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "defiled_lands_preborn:scuttler_eye"
+    },
+    "S": {
+      "item": "defiled_lands_preborn:scarlite"
+    },
+    "U": {
+      "item": "defiled_lands_preborn:umbrium_ingot"
+    }
+  },
+  "pattern": [
+    "UEE",
+    "USU",
+    "UUU"
+  ],
+  "result": {
+    "item": "defiled_lands_preborn:concussion_smasher"
+  },
+  "show_notification": true
+}

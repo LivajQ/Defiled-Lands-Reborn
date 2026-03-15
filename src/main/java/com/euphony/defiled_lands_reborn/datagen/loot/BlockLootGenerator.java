@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.datagen.loot;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.init.DLBlocks;
 import com.euphony.defiled_lands_reborn.common.init.DLItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
@@ -23,7 +23,7 @@ public class BlockLootGenerator extends BlockLootSubProvider {
     @Override
     protected Iterable<Block> getKnownBlocks() {
         return BuiltInRegistries.BLOCK.entrySet().stream()
-                .filter(e -> e.getKey().location().getNamespace().equals(DefiledLandsReborn.MOD_ID))
+                .filter(e -> e.getKey().location().getNamespace().equals(DefiledLandsPreborn.MOD_ID))
                 .map(Map.Entry::getValue)
                 .toList();
     }

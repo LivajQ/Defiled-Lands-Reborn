@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.common.item.armor;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.tag.DLItemTags;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -112,7 +112,7 @@ public enum DLArmorMaterials implements ArmorMaterial {
     
     @Override
     public String getName() {
-        return DefiledLandsReborn.MOD_ID + ":" + name;
+        return DefiledLandsPreborn.MOD_ID + ":" + name;
     }
     
     @Override

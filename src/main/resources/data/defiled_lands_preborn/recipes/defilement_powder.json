@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "defiled_lands_preborn:scuronotte"
+    }
+  ],
+  "result": {
+    "item": "defiled_lands_preborn:defilement_powder"
+  }
+}

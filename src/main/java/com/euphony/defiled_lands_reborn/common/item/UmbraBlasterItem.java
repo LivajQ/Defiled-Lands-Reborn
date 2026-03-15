@@ -107,6 +107,6 @@ public class UmbraBlasterItem extends GunItem implements IEnchantDestructive {
     
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-        ItemUtils.addTooltip(tooltip::add, "item.defiled_lands_reborn.umbra_blaster.tooltip");
+        ItemUtils.addTooltip(tooltip::add, "item.defiled_lands_preborn.umbra_blaster.tooltip");
     }
 }

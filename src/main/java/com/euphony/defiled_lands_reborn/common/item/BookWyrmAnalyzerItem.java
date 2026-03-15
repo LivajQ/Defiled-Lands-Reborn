@@ -27,7 +27,7 @@ public class BookWyrmAnalyzerItem extends Item {
         if (entity instanceof BookWyrm) {
             BookWyrm target = (BookWyrm) entity;
 
-            String base = "ui.defiled_lands_reborn.book_wyrm_analyze.";
+            String base = "ui.defiled_lands_preborn.book_wyrm_analyze.";
             player.displayClientMessage(Component.translatable(base + "health", target.getHealth(), target.getMaxHealth()), false);
             player.displayClientMessage(Component.translatable(base + "digest_time", target.getDigestingTime()), false);
             player.displayClientMessage(Component.translatable(base + "max_level", target.getEnchLevel()), false);
@@ -56,7 +56,7 @@ public class BookWyrmAnalyzerItem extends Item {
     
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-        ItemUtils.addTooltip(tooltip::add, "item.defiled_lands_reborn.book_wyrm_analyzer.tooltip");
+        ItemUtils.addTooltip(tooltip::add, "item.defiled_lands_preborn.book_wyrm_analyzer.tooltip");
     }
     
 }

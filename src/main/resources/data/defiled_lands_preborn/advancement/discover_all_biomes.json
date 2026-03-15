@@ -1,0 +1,136 @@
+{
+  "display": {
+    "icon": {
+      "id": "defiled_lands_preborn:defiled_sandstone"
+    },
+    "title": {
+      "translate": "advancements.defiled_lands_preborn.discover_all_biomes.title"
+    },
+    "description": {
+      "translate": "advancements.defiled_lands_preborn.discover_all_biomes.description"
+    },
+    "frame": "challenge"
+  },
+  "parent": "defiled_lands_preborn:root",
+  "rewards": {
+    "experience": 500
+  },
+  "criteria": {
+    "defiled_desert": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "defiled_lands_preborn:defiled_desert"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "defiled_plains": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "defiled_lands_preborn:defiled_plains"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "tenebra_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "defiled_lands_preborn:tenebra_forest"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "vilespine_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "defiled_lands_preborn:vilespine_forest"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "defiled_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "defiled_lands_preborn:defiled_hills"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "defiled_ice_plains": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "defiled_lands_preborn:defiled_ice_plains"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "defiled_desert"
+    ],
+    [
+      "defiled_plains"
+    ],
+    [
+      "tenebra_forest"
+    ],
+    [
+      "vilespine_forest"
+    ],
+    [
+      "defiled_hills"
+    ],
+    [
+      "defiled_ice_plains"
+    ]
+  ]
+}

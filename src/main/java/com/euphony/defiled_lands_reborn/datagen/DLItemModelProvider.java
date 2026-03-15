@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.datagen;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.init.DLBlocks;
 import com.euphony.defiled_lands_reborn.common.init.DLItems;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -13,7 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class DLItemModelProvider extends ItemModelProvider {
     
     public DLItemModelProvider(PackOutput output, ExistingFileHelper helper) {
-        super(output, DefiledLandsReborn.MOD_ID, helper);
+        super(output, DefiledLandsPreborn.MOD_ID, helper);
     }
     
     @Override

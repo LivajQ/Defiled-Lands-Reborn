@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.client;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.block.CorruptedColoredFallingBlock;
 import com.euphony.defiled_lands_reborn.common.init.DLBlocks;
 import net.minecraft.world.item.BlockItem;
@@ -9,7 +9,7 @@ import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = DefiledLandsReborn.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = DefiledLandsPreborn.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientHandlerForge {
     
     @SubscribeEvent

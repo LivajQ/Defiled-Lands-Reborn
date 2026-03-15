@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.datagen;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.init.DLBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.*;
@@ -11,7 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class DLBlockModelProvider extends BlockStateProvider {
     
     public DLBlockModelProvider(PackOutput output, ExistingFileHelper helper) {
-        super(output, DefiledLandsReborn.MOD_ID, helper);
+        super(output, DefiledLandsPreborn.MOD_ID, helper);
     }
     
     @Override

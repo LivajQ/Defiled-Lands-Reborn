@@ -1,7 +1,7 @@
 {
   "values": [
-    "defiled_lands_reborn:hephaestite_block",
-    "defiled_lands_reborn:umbrium_block",
-    "defiled_lands_reborn:scarlite_block"
+    "defiled_lands_preborn:hephaestite_block",
+    "defiled_lands_preborn:umbrium_block",
+    "defiled_lands_preborn:scarlite_block"
   ]
 }

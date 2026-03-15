@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.common.init;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.item.*;
 import com.euphony.defiled_lands_reborn.common.item.armor.DLArmorMaterials;
 import com.euphony.defiled_lands_reborn.common.item.food.DLFoods;
@@ -19,7 +19,7 @@ import java.util.function.Supplier;
 public class DLItems {
     
     public static final DeferredRegister<Item> ITEMS =
-            DeferredRegister.create(ForgeRegistries.ITEMS, DefiledLandsReborn.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.ITEMS, DefiledLandsPreborn.MOD_ID);
     
     public static final Collection<RegistryObject<Item>> SPAWN_EGGS = new ArrayList<>();
     

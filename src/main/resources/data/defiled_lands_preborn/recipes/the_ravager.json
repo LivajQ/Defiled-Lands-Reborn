@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "defiled_lands_preborn:scarlite"
+    },
+    "E": {
+      "item": "defiled_lands_preborn:scuttler_eye"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "R": {
+      "item": "defiled_lands_preborn:ravaging_ingot"
+    },
+    "U": {
+      "item": "defiled_lands_preborn:umbrium_ingot"
+    }
+  },
+  "pattern": [
+    "  E",
+    "RUC",
+    "  L"
+  ],
+  "result": {
+    "item": "defiled_lands_preborn:the_ravager"
+  },
+  "show_notification": true
+}

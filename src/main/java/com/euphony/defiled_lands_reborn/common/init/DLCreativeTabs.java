@@ -1,21 +1,20 @@
 package com.euphony.defiled_lands_reborn.common.init;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class DLCreativeTabs {
     
     public static final DeferredRegister<CreativeModeTab> TABS =
-            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, DefiledLandsReborn.MOD_ID);
+            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, DefiledLandsPreborn.MOD_ID);
     
     public static final RegistryObject<CreativeModeTab> DEFILED_TAB =
-            TABS.register("defiled_lands_reborn", () ->
+            TABS.register("defiled_lands_preborn", () ->
                     CreativeModeTab.builder()
                             .title(Component.translatable("itemGroup.tabDefiledLands"))
                             .icon(() -> new ItemStack(DLBlocks.DEFILED_GRASS_BLOCK.get()))

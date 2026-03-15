@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.common.init;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.effect.BleedingEffect;
 import com.euphony.defiled_lands_reborn.common.effect.GroundedEffect;
 import com.euphony.defiled_lands_reborn.common.effect.VulnerabilityEffect;
@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class DLEffects {
     
     public static final DeferredRegister<MobEffect> EFFECTS =
-            DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, DefiledLandsReborn.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, DefiledLandsPreborn.MOD_ID);
     
     public static final RegistryObject<MobEffect> VULNERABILITY =
             EFFECTS.register("vulnerability", VulnerabilityEffect::new);

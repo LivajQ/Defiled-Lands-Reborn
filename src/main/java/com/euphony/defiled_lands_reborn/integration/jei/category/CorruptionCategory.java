@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.integration.jei.category;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.euphony.defiled_lands_reborn.common.init.DLItems;
 import com.euphony.defiled_lands_reborn.integration.jei.recipe.CorruptionRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -22,7 +22,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 public class CorruptionCategory implements IRecipeCategory<CorruptionRecipe> {
     
     public static final RecipeType<CorruptionRecipe> CORRUPTION =
-            new RecipeType<>(new ResourceLocation(DefiledLandsReborn.MOD_ID, "corruption"), CorruptionRecipe.class);
+            new RecipeType<>(new ResourceLocation(DefiledLandsPreborn.MOD_ID, "corruption"), CorruptionRecipe.class);
     
     private final IDrawable icon;
     private final Component localizedName;

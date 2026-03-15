@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "defiled_lands_preborn:umbrium_ore"
+  },
+  "result": "defiled_lands_preborn:umbrium_ingot"
+}

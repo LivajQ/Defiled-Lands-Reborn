@@ -1,0 +1,52 @@
+{
+  "type": "defiled_lands_preborn:vilespine",
+  "config": {
+    "layers": [
+      {
+        "height": {
+          "type": "minecraft:uniform",
+          "value": {
+            "min_inclusive": 5,
+            "max_inclusive": 7
+          }
+        },
+        "provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "defiled_lands_preborn:vilespine"
+          }
+        }
+      }
+    ],
+    "direction": "up",
+    "allowed_placement": {
+      "type": "minecraft:matching_blocks",
+      "blocks": ["minecraft:air"]
+    },
+    "primary_allowed_placement": {
+      "type": "minecraft:all_of",
+      "predicates": [
+        {
+          "type": "minecraft:matching_blocks",
+          "blocks": ["minecraft:air"]
+        },
+        {
+          "type": "minecraft:would_survive",
+          "state": {
+            "Name": "defiled_lands_preborn:vilespine"
+          }
+        }
+      ]
+    },
+    "prioritize_tip": true,
+    "top_state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "defiled_lands_preborn:vilespine",
+        "Properties": {
+          "topmost": "true"
+        }
+      }
+    }
+  }
+}

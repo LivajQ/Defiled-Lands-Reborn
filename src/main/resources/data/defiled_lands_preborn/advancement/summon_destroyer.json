@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "id": "defiled_lands_preborn:calling_stone"
+    },
+    "title": {
+      "translate": "advancements.defiled_lands_preborn.summon_destroyer.title"
+    },
+    "description": {
+      "translate": "advancements.defiled_lands_preborn.summon_destroyer.description"
+    }
+  },
+  "parent": "defiled_lands_preborn:scarlite",
+  "criteria": {
+    "summoned": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": {
+          "type": "defiled_lands_preborn:the_destroyer"
+        }
+      }
+    }
+  }
+}

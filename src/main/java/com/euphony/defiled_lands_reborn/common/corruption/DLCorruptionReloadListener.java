@@ -1,6 +1,6 @@
 package com.euphony.defiled_lands_reborn.common.corruption;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsReborn;
+import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -34,7 +34,7 @@ public class DLCorruptionReloadListener extends SimpleJsonResourceReloadListener
                 Block target = BuiltInRegistries.BLOCK.get(targetId);
                 
                 if (target == null) {
-                    DefiledLandsReborn.LOGGER.warn("Unknown target block: {}", targetId);
+                    DefiledLandsPreborn.LOGGER.warn("Unknown target block: {}", targetId);
                     continue;
                 }
                 
@@ -50,7 +50,7 @@ public class DLCorruptionReloadListener extends SimpleJsonResourceReloadListener
                     Block from = BuiltInRegistries.BLOCK.get(fromId);
                     
                     if (from == null) {
-                        DefiledLandsReborn.LOGGER.warn("Unknown source block: {}", fromId);
+                        DefiledLandsPreborn.LOGGER.warn("Unknown source block: {}", fromId);
                         continue;
                     }
                     

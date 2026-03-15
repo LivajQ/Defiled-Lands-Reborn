@@ -23,7 +23,7 @@ public class ConcussionSmasherItem extends Item implements IEnchantDestructive {
     
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-        ItemUtils.addTooltip(tooltip::add, "item.defiled_lands_reborn.concussion_smasher.tooltip");
+        ItemUtils.addTooltip(tooltip::add, "item.defiled_lands_preborn.concussion_smasher.tooltip");
     }
     
     @Override

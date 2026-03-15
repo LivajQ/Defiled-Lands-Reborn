@@ -1,0 +1,143 @@
+{
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": 12638463,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000
+    },
+    "music": [
+      {
+        "data": {
+          "max_delay": 24000,
+          "min_delay": 12000,
+          "replace_current_music": false,
+          "sound": "minecraft:music.overworld.desert"
+        },
+        "weight": 1
+      }
+    ],
+    "music_volume": 1.0,
+    "sky_color": 7254527,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [],
+    [
+      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_surface"
+    ],
+    [
+      "minecraft:monster_room",
+      "minecraft:monster_room_deep"
+    ],
+    [
+      "minecraft:desert_well"
+    ],
+    [],
+    [
+      "defiled_lands_preborn:ore_defiled_dirt",
+      "defiled_lands_preborn:ore_defiled_gravel",
+      "defiled_lands_preborn:ore_hephaestite_upper",
+      "defiled_lands_preborn:ore_hephaestite_lower",
+      "defiled_lands_preborn:ore_umbrium_upper",
+      "defiled_lands_preborn:ore_umbrium_middle",
+      "defiled_lands_preborn:ore_umbrium_small",
+      "defiled_lands_preborn:ore_scarlite",
+      "defiled_lands_preborn:ore_scarlite_medium",
+      "defiled_lands_preborn:ore_scarlite_large",
+      "defiled_lands_preborn:ore_scarlite_buried",
+      "minecraft:underwater_magma",
+      "defiled_lands_preborn:disk_defiled_gravel",
+      "defiled_lands_preborn:disk_defiled_sand"
+    ],
+    [],
+    [
+      "minecraft:spring_water",
+      "minecraft:spring_lava"
+    ],
+    [
+      "defiled_lands_preborn:vilespine",
+      "defiled_lands_preborn:scuronotte",
+      "defiled_lands_preborn:blastem",
+      "defiled_lands_preborn:altar"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "maxCount": 8,
+        "minCount": 8,
+        "weight": 10
+      }
+    ],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "defiled_lands_preborn:book_wyrm",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 80
+      },
+      {
+        "type": "defiled_lands_preborn:golden_book_wyrm",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 3
+      }
+    ],
+    "misc": [],
+    "monster": [
+      {
+        "type": "defiled_lands_preborn:scuttler",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "defiled_lands_preborn:host",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 19
+      },
+      {
+        "type": "defiled_lands_preborn:defiled_slime",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "defiled_lands_preborn:shambler",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 10
+      },
+      {
+        "type": "defiled_lands_preborn:twisted_shambler",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 5
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 2.0
+}

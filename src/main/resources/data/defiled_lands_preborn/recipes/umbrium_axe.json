@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "defiled_lands_preborn:umbrium_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "## ",
+    "#S ",
+    " S "
+  ],
+  "result": {
+    "item": "defiled_lands_preborn:umbrium_axe"
+  },
+  "show_notification": true
+}
