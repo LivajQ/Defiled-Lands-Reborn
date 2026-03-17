@@ -43,10 +43,10 @@ public class GoldenBookWyrm extends BookWyrm {
     
     @Override
     public boolean isGolden(AgeableMob mate) {
-        double chance = ConfigHelper.common().entity.goldenBookWyrmProbabilityForOneGolden.get();
+        double chance = ConfigHelper.common().bookwyrm.goldenBookWyrmProbabilityForOneGolden.get();
         
         if (mate instanceof GoldenBookWyrm) {
-            chance = ConfigHelper.common().entity.goldenBookWyrmProbabilityForTwoGolden.get();
+            chance = ConfigHelper.common().bookwyrm.goldenBookWyrmProbabilityForTwoGolden.get();
         }
         
         return random.nextDouble() <= chance;

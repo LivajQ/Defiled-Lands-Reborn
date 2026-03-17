@@ -3,6 +3,7 @@ package com.euphony.defiled_lands_reborn.utils;
 import com.euphony.defiled_lands_reborn.common.corruption.DLCorruptionData;
 import com.euphony.defiled_lands_reborn.common.tag.DLBiomeTags;
 import com.euphony.defiled_lands_reborn.config.ConfigHelper;
+import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
@@ -35,7 +36,7 @@ public class CorruptionUtils {
     
     public static boolean canSpread(Level level, BlockPos pos, RandomSource rand) {
         Holder<Biome> biome = level.getBiome(pos);
-        return biome.is(DLBiomeTags.IS_DEFILED) || ConfigHelper.common().general.enableCorruptionSpread.get();
+        return ConfigHolder.common.corruption.confinedSpread.get() ? biome.is(DLBiomeTags.IS_DEFILED) : ConfigHelper.common().corruption.enableCorruptionSpread.get();
     }
     
     public static boolean corrupt(Level level, BlockPos pos, BlockState state) {

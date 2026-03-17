@@ -161,7 +161,7 @@ public class BookWyrm extends Animal {
     public static void mixGenes(BookWyrm a, BookWyrm b, BookWyrm child, RandomSource rand) {
         int maxLevel = Math.max(a.enchLevel, b.enchLevel);
         int level = a.enchLevel + b.enchLevel + rand.nextInt(maxLevel + 1);
-        child.enchLevel = Math.min(level / 2, ConfigHelper.common().entity.bookWyrmMaxEnchantingLevel.get());
+        child.enchLevel = Math.min(level / 2, ConfigHelper.common().bookwyrm.bookWyrmMaxEnchantingLevel.get());
 
         int maxTime = Math.max(a.digestingTime, b.digestingTime);
         int k = a.digestingTime + b.digestingTime - rand.nextInt((int)(maxTime + 0.75));
@@ -227,9 +227,9 @@ public class BookWyrm extends Animal {
     }
     
     public boolean isGolden(AgeableMob mate) {
-        double i = ConfigHelper.common().entity.goldenBookWyrmProbabilityForZeroGolden.get();
+        double i = ConfigHelper.common().bookwyrm.goldenBookWyrmProbabilityForZeroGolden.get();
         if (mate instanceof GoldenBookWyrm) {
-            i = ConfigHelper.common().entity.goldenBookWyrmProbabilityForOneGolden.get();
+            i = ConfigHelper.common().bookwyrm.goldenBookWyrmProbabilityForOneGolden.get();
         }
         if (random.nextDouble() <= i) {
             return true;
