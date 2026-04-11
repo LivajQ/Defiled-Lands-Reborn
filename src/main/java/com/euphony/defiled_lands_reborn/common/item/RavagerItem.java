@@ -3,6 +3,7 @@ package com.euphony.defiled_lands_reborn.common.item;
 import com.euphony.defiled_lands_reborn.common.entity.projectile.RavagerProjectile;
 import com.euphony.defiled_lands_reborn.common.init.DLItems;
 import com.euphony.defiled_lands_reborn.common.tag.DLItemTags;
+import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import com.euphony.defiled_lands_reborn.utils.ItemUtils;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
@@ -35,6 +36,11 @@ public class RavagerItem extends GunItem {
     @Override
     protected boolean isAmmo(ItemStack stack) {
         return stack.is(DLItemTags.RAVAGER_PELLET);
+    }
+    
+    @Override
+    public int getMaxDamage(ItemStack stack) {
+        return ConfigHolder.common.ravagerDurability;
     }
     
     @Override
@@ -78,7 +84,10 @@ public class RavagerItem extends GunItem {
                     0.0F, 1.5F * i, 1.0F / i);
             
             projectile.setItem(ammo);
-            projectile.setDamage(ammo.is(DLItems.RAVAGING_PELLET.get()) ? 20 : 10);
+            Double damage = null;
+            if (ammo.is(DLItems.RAVAGING_PELLET.get())) damage = ConfigHolder.common.ravagingPelletDamage;
+            else if (ammo.is(DLItems.SPIKED_PELLET.get())) damage = ConfigHolder.common.spikedPelletDamage;
+            if (damage != null) projectile.setDamage(damage.floatValue());
             
             level.addFreshEntity(projectile);
             

@@ -2,6 +2,7 @@ package com.euphony.defiled_lands_reborn.common.item;
 
 import com.euphony.defiled_lands_reborn.common.init.DLItems;
 import com.euphony.defiled_lands_reborn.common.item.api.IEnchantDestructive;
+import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import com.euphony.defiled_lands_reborn.utils.ItemUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class ConcussionSmasherItem extends Item implements IEnchantDestructive {
     public ConcussionSmasherItem(Properties properties) {
-        super(properties.stacksTo(1).durability(178));
+        super(properties.stacksTo(1).durability(50));
     }
     
     @Override
@@ -34,7 +35,7 @@ public class ConcussionSmasherItem extends Item implements IEnchantDestructive {
             
             if (strength >= 0.1F) {
                 if (!level.isClientSide) {
-                    strength *= 2.0F * getDestructiveBonus(level.registryAccess(), stack);
+                    strength *= (float) (ConfigHolder.common.concussionSmasherStrength * getDestructiveBonus(level.registryAccess(), stack));
                     
                     level.explode(
                             entity,
@@ -45,7 +46,7 @@ public class ConcussionSmasherItem extends Item implements IEnchantDestructive {
                             entity.getZ(),
                             strength,
                             false,
-                            Level.ExplosionInteraction.NONE // TRIGGER → NONE
+                            Level.ExplosionInteraction.NONE
                     );
                     
                     stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(player.getUsedItemHand()));
@@ -63,11 +64,28 @@ public class ConcussionSmasherItem extends Item implements IEnchantDestructive {
         return InteractionResultHolder.consume(stack);
     }
     
+    @Override
+    public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int remainingUseTicks) {
+        super.onUseTick(level, entity, stack, remainingUseTicks);
+        
+        int used = getUseDuration(stack) - remainingUseTicks;
+
+        if (used >= 60) {
+            releaseUsing(stack, level, entity, remainingUseTicks);
+            entity.stopUsingItem();
+        }
+    }
+    
     public static float getExplosionStrength(int charge) {
-        float ratio = (float) charge / 7.0F;
+        float ratio = (float) charge / 60.0F;
         return Math.min(ratio, 1.0F);
     }
-
+    
+    @Override
+    public int getMaxDamage(ItemStack stack) {
+        return ConfigHolder.common.concussionSmasherDurability;
+    }
+    
     @Override
     public int getUseDuration(ItemStack stack) {
         return 72000;

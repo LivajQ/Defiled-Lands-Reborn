@@ -1,5 +1,6 @@
 package com.euphony.defiled_lands_reborn.common.entity.boss;
 
+import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -18,6 +19,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.BossEvent;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -38,6 +40,7 @@ import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
@@ -136,10 +139,32 @@ public class MournerBoss extends Monster {
     
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 400)
-                .add(Attributes.FOLLOW_RANGE, 128)
-                .add(Attributes.ATTACK_DAMAGE, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
+                .add(Attributes.ATTACK_DAMAGE, 16.0D)
+                .add(Attributes.ATTACK_SPEED, 1.0D)
+                .add(Attributes.ATTACK_KNOCKBACK, 2.0D)
+                .add(Attributes.MAX_HEALTH, 400.0D)
+                .add(Attributes.ARMOR, 10.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.7D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                .add(Attributes.FOLLOW_RANGE, 128.0D);
+    }
+    
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+        
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(ConfigHolder.common.mournerAttackDamage);
+        this.getAttribute(Attributes.ATTACK_SPEED).setBaseValue(ConfigHolder.common.mournerAttackSpeed);
+        this.getAttribute(Attributes.ATTACK_KNOCKBACK).setBaseValue(ConfigHolder.common.mournerAttackKnockback);
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(ConfigHolder.common.mournerHealth);
+        this.getAttribute(Attributes.ARMOR).setBaseValue(ConfigHolder.common.mournerArmor);
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(ConfigHolder.common.mournerMovementSpeed);
+        this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(ConfigHolder.common.mournerKnockbackResistance);
+        this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(ConfigHolder.common.mournerFollowRange);
+        
+        this.setHealth(this.getMaxHealth());
+        
+        return data;
     }
     
     @Override

@@ -1,11 +1,15 @@
 package com.euphony.defiled_lands_reborn.common.entity;
 
+import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -26,9 +30,34 @@ public class Scuttler extends Spider {
     
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 16.0F)
-                .add(Attributes.MOVEMENT_SPEED, 0.34F);
+                .add(Attributes.ATTACK_DAMAGE, 3.0D)
+                .add(Attributes.ATTACK_SPEED, 1.0D)
+                .add(Attributes.ATTACK_KNOCKBACK, 1.0D)
+                .add(Attributes.MAX_HEALTH, 16.0D)
+                .add(Attributes.ARMOR, 0.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.34D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D)
+                .add(Attributes.FOLLOW_RANGE, 16.0D);
     }
+    
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+        
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(ConfigHolder.common.scuttlerAttackDamage);
+        this.getAttribute(Attributes.ATTACK_SPEED).setBaseValue(ConfigHolder.common.scuttlerAttackSpeed);
+        this.getAttribute(Attributes.ATTACK_KNOCKBACK).setBaseValue(ConfigHolder.common.scuttlerAttackKnockback);
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(ConfigHolder.common.scuttlerHealth);
+        this.getAttribute(Attributes.ARMOR).setBaseValue(ConfigHolder.common.scuttlerArmor);
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(ConfigHolder.common.scuttlerMovementSpeed);
+        this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(ConfigHolder.common.scuttlerKnockbackResistance);
+        this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(ConfigHolder.common.scuttlerFollowRange);
+        
+        this.setHealth(this.getMaxHealth());
+        
+        return data;
+    }
+    
     
     public static boolean isDarkEnoughToSpawn(ServerLevelAccessor level, BlockPos pos, RandomSource random) {
         int brightness = level.getLevel().isThundering()

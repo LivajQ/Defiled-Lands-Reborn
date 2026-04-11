@@ -2,6 +2,7 @@ package com.euphony.defiled_lands_reborn.common.entity.projectile;
 
 import com.euphony.defiled_lands_reborn.common.init.DLEntities;
 import com.euphony.defiled_lands_reborn.common.init.DLItems;
+import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,24 +22,24 @@ public class BlastemFruitProjectile extends ThrowableItemProjectile implements I
     
     public BlastemFruitProjectile(EntityType<? extends ThrowableItemProjectile> type, Level level) {
         super(type, level);
-        damage = 7.0F;
-        explosion = 1.5F;
+        damage = (float) ConfigHolder.common.blastemDamage;
+        explosion = (float) ConfigHolder.common.blastemExplosion;
         destructive = true;
     }
     
     public BlastemFruitProjectile(Level level, LivingEntity thrower) {
         super(DLEntities.BLASTEM_FRUIT_PROJECTILE.get(), thrower, level);
         this.setItem(new ItemStack(DLItems.BLASTEM_FRUIT.get()));
-        damage = 7.0F;
-        explosion = 1.5F;
+        damage = (float) ConfigHolder.common.blastemDamage;
+        explosion = (float) ConfigHolder.common.blastemExplosion;
         destructive = true;
     }
     
     public BlastemFruitProjectile(EntityType<? extends BlastemFruitProjectile> type, Level level, LivingEntity thrower) {
         super(type, thrower, level);
         this.setItem(new ItemStack(DLItems.BLASTEM_FRUIT.get()));
-        damage = 7.0F;
-        explosion = 1.5F;
+        damage = (float) ConfigHolder.common.blastemDamage;
+        explosion = (float) ConfigHolder.common.blastemExplosion;
         destructive = true;
     }
     

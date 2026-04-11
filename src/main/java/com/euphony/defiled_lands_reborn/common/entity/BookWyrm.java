@@ -4,7 +4,7 @@ import com.euphony.defiled_lands_reborn.common.init.DLEntities;
 import com.euphony.defiled_lands_reborn.common.init.DLItems;
 import com.euphony.defiled_lands_reborn.common.init.DLSounds;
 import com.euphony.defiled_lands_reborn.common.tag.DLBlockTags;
-import com.euphony.defiled_lands_reborn.config.ConfigHelper;
+import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -62,7 +62,9 @@ public class BookWyrm extends Animal {
     }
     
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 12.0D).add(Attributes.MOVEMENT_SPEED, 0.25D);
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 12.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
     
     @Override
@@ -137,8 +139,16 @@ public class BookWyrm extends Animal {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, CompoundTag dataTag) {
         wildGenes(this, random);
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, dataTag);
+        
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnData, dataTag);
+
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(ConfigHolder.common.bookWyrmHealth);
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(ConfigHolder.common.bookWyrmMovementSpeed);
+        this.setHealth(this.getMaxHealth());
+        
+        return data;
     }
+    
     
     public static void wildGenes(BookWyrm wyrm, RandomSource rand) {
         wyrm.digestingTime = rand.nextInt(81) + 160;
@@ -161,7 +171,7 @@ public class BookWyrm extends Animal {
     public static void mixGenes(BookWyrm a, BookWyrm b, BookWyrm child, RandomSource rand) {
         int maxLevel = Math.max(a.enchLevel, b.enchLevel);
         int level = a.enchLevel + b.enchLevel + rand.nextInt(maxLevel + 1);
-        child.enchLevel = Math.min(level / 2, ConfigHelper.common().bookwyrm.bookWyrmMaxEnchantingLevel.get());
+        child.enchLevel = Math.min(level / 2, ConfigHolder.common.bookWyrmMaxEnchantingLevel);
 
         int maxTime = Math.max(a.digestingTime, b.digestingTime);
         int k = a.digestingTime + b.digestingTime - rand.nextInt((int)(maxTime + 0.75));
@@ -227,9 +237,9 @@ public class BookWyrm extends Animal {
     }
     
     public boolean isGolden(AgeableMob mate) {
-        double i = ConfigHelper.common().bookwyrm.goldenBookWyrmProbabilityForZeroGolden.get();
+        double i = ConfigHolder.common.goldenWyrmChanceForZeroGolden;
         if (mate instanceof GoldenBookWyrm) {
-            i = ConfigHelper.common().bookwyrm.goldenBookWyrmProbabilityForOneGolden.get();
+            i = ConfigHolder.common.goldenWyrmChanceForOneGolden;
         }
         if (random.nextDouble() <= i) {
             return true;

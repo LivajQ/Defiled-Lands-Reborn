@@ -120,11 +120,11 @@
 
   "enchantment.defiled_lands_preborn.sharpshooter": "Sharpshooter",
   "enchantment.defiled_lands_preborn.economical": "Economical",
-  "enchantment.defiled_lands_preborn.safeguard": "Safeguard",
+  "enchantment.defiled_lands_preborn.safe_guard": "Safeguard",
   "enchantment.defiled_lands_preborn.destructive": "Destructive",
   "enchantment.defiled_lands_preborn.blazing": "Blazing",
   "enchantment.defiled_lands_preborn.destructive.desc": "Increases explosion size and direct impact damage",
-  "enchantment.defiled_lands_preborn.safeguard.desc": "Prevents explosions from destroying blocks",
+  "enchantment.defiled_lands_preborn.safe_guard.desc": "Prevents explosions from destroying blocks",
   "enchantment.defiled_lands_preborn.sharpshooter.desc": "Increases projectile speed and range, and reduces inaccuracy",
   "enchantment.defiled_lands_preborn.economical.desc": "Gives a chance for your weapon to not consume ammo when used",
   "enchantment.defiled_lands_preborn.blazing.desc": "Converts fired blastem fruit into blazing variants",

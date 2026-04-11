@@ -1,3 +1,6 @@
 {
-  "parent": "defiled_lands_preborn:block/vilespine_top"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "defiled_lands_preborn:block/vilespine_part"
+  }
 }

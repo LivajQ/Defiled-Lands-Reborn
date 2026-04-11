@@ -1,6 +1,7 @@
 package com.euphony.defiled_lands_reborn.common.enchantment;
 
 import com.euphony.defiled_lands_reborn.common.tag.DLItemTags;
+import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -24,7 +25,7 @@ public class EnchantmentDestructive extends Enchantment {
     
     @Override
     public int getMaxLevel() {
-        return 5;
+        return ConfigHolder.common.enchantmentDestructiveLevel;
     }
     
     @Override

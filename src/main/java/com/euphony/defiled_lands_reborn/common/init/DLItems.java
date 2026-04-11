@@ -5,6 +5,7 @@ import com.euphony.defiled_lands_reborn.common.item.*;
 import com.euphony.defiled_lands_reborn.common.item.armor.DLArmorMaterials;
 import com.euphony.defiled_lands_reborn.common.item.food.DLFoods;
 import com.euphony.defiled_lands_reborn.common.item.tool.DLToolMaterials;
+import com.euphony.defiled_lands_reborn.utils.ItemUtils;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
@@ -28,7 +29,7 @@ public class DLItems {
     
     public static final RegistryObject<Item> UMBRIUM_INGOT =
             register("umbrium_ingot", Item::new);
-    
+
     public static final RegistryObject<Item> UMBRIUM_NUGGET =
             register("umbrium_nugget", Item::new);
     
@@ -73,23 +74,35 @@ public class DLItems {
     
     public static final RegistryObject<AxeItem> UMBRIUM_AXE =
             register("umbrium_axe",
-                    p -> new AxeItem(DLToolMaterials.UMBRIUM, 6.0f, -3.1F, p));
+                    p -> ItemUtils.dynamicAxe(DLToolMaterials.UMBRIUM, 6.0F, -3.1F, p));
     
     public static final RegistryObject<HoeItem> UMBRIUM_HOE =
             register("umbrium_hoe",
-                    p -> new HoeItem(DLToolMaterials.UMBRIUM, -2, -1.0F, p));
+                    p -> ItemUtils.dynamicHoe(DLToolMaterials.UMBRIUM, 2, -1.0F, p));
     
     public static final RegistryObject<PickaxeItem> UMBRIUM_PICKAXE =
             register("umbrium_pickaxe",
-                    p -> new PickaxeItem(DLToolMaterials.UMBRIUM, 1, -2.8F, p));
+                    p -> ItemUtils.dynamicPickaxe(DLToolMaterials.UMBRIUM, 1, -2.8F, p));
     
     public static final RegistryObject<ShovelItem> UMBRIUM_SHOVEL =
             register("umbrium_shovel",
-                    p -> new ShovelItem(DLToolMaterials.UMBRIUM, 1.5f, -3.0F, p));
+                    p -> ItemUtils.dynamicShovel(DLToolMaterials.UMBRIUM, 1.5F, -3.0F, p));
     
     public static final RegistryObject<SwordItem> UMBRIUM_SWORD =
             register("umbrium_sword",
-                    p -> new SwordItem(DLToolMaterials.UMBRIUM, 3, -2.4F, p));
+                    p -> ItemUtils.dynamicSword(DLToolMaterials.UMBRIUM, 3, -2.4F, p));
+    
+    public static final RegistryObject<AxeItem> RAVAGING_AXE =
+            register("ravaging_axe",
+                    p -> ItemUtils.dynamicAxe(DLToolMaterials.RAVAGING, 5.0F, -3.0F, p));
+    
+    public static final RegistryObject<PickaxeItem> RAVAGING_PICKAXE =
+            register("ravaging_pickaxe",
+                    p -> ItemUtils.dynamicPickaxe(DLToolMaterials.RAVAGING, 1, -2.8F, p));
+    
+    public static final RegistryObject<ShovelItem> RAVAGING_SHOVEL =
+            register("ravaging_shovel",
+                    p -> ItemUtils.dynamicShovel(DLToolMaterials.RAVAGING, 1.5F, -3.0F, p));
     
     public static final RegistryObject<ScarliteReaverItem> SCARLITE_REAVER =
             register("scarlite_reaver", ScarliteReaverItem::new);
@@ -99,51 +112,51 @@ public class DLItems {
     
     public static final RegistryObject<ArmorItem> UMBRIUM_HELMET =
             register("umbrium_helmet",
-                    p -> new ArmorItem(DLArmorMaterials.UMBRIUM, ArmorItem.Type.HELMET, p));
+                    p -> ItemUtils.dynamicArmor(DLArmorMaterials.UMBRIUM, ArmorItem.Type.HELMET, p));
     
     public static final RegistryObject<ArmorItem> UMBRIUM_CHESTPLATE =
             register("umbrium_chestplate",
-                    p -> new ArmorItem(DLArmorMaterials.UMBRIUM, ArmorItem.Type.CHESTPLATE, p));
+                    p -> ItemUtils.dynamicArmor(DLArmorMaterials.UMBRIUM, ArmorItem.Type.CHESTPLATE, p));
     
     public static final RegistryObject<ArmorItem> UMBRIUM_LEGGINGS =
             register("umbrium_leggings",
-                    p -> new ArmorItem(DLArmorMaterials.UMBRIUM, ArmorItem.Type.LEGGINGS, p));
+                    p -> ItemUtils.dynamicArmor(DLArmorMaterials.UMBRIUM, ArmorItem.Type.LEGGINGS, p));
     
     public static final RegistryObject<ArmorItem> UMBRIUM_BOOTS =
             register("umbrium_boots",
-                    p -> new ArmorItem(DLArmorMaterials.UMBRIUM, ArmorItem.Type.BOOTS, p));
+                    p -> ItemUtils.dynamicArmor(DLArmorMaterials.UMBRIUM, ArmorItem.Type.BOOTS, p));
     
     public static final RegistryObject<ArmorItem> BOOK_WYRM_SCALE_HELMET =
             register("book_wyrm_scale_helmet",
-                    p -> new ArmorItem(DLArmorMaterials.BOOK_WYRM_SCALE, ArmorItem.Type.HELMET, p));
+                    p -> ItemUtils.dynamicArmor(DLArmorMaterials.BOOK_WYRM_SCALE, ArmorItem.Type.HELMET, p));
     
     public static final RegistryObject<ArmorItem> BOOK_WYRM_SCALE_CHESTPLATE =
             register("book_wyrm_scale_chestplate",
-                    p -> new ArmorItem(DLArmorMaterials.BOOK_WYRM_SCALE, ArmorItem.Type.CHESTPLATE, p));
+                    p -> ItemUtils.dynamicArmor(DLArmorMaterials.BOOK_WYRM_SCALE, ArmorItem.Type.CHESTPLATE, p));
     
     public static final RegistryObject<ArmorItem> BOOK_WYRM_SCALE_LEGGINGS =
             register("book_wyrm_scale_leggings",
-                    p -> new ArmorItem(DLArmorMaterials.BOOK_WYRM_SCALE, ArmorItem.Type.LEGGINGS, p));
+                    p -> ItemUtils.dynamicArmor(DLArmorMaterials.BOOK_WYRM_SCALE, ArmorItem.Type.LEGGINGS, p));
     
     public static final RegistryObject<ArmorItem> BOOK_WYRM_SCALE_BOOTS =
             register("book_wyrm_scale_boots",
-                    p -> new ArmorItem(DLArmorMaterials.BOOK_WYRM_SCALE, ArmorItem.Type.BOOTS, p));
+                    p -> ItemUtils.dynamicArmor(DLArmorMaterials.BOOK_WYRM_SCALE, ArmorItem.Type.BOOTS, p));
     
     public static final RegistryObject<ArmorItem> GOLDEN_BOOK_WYRM_SCALE_HELMET =
             register("golden_book_wyrm_scale_helmet",
-                    p -> new ArmorItem(DLArmorMaterials.GOLDEN_BOOK_WYRM_SCALE, ArmorItem.Type.HELMET, p));
+                    p -> ItemUtils.dynamicArmor(DLArmorMaterials.GOLDEN_BOOK_WYRM_SCALE, ArmorItem.Type.HELMET, p));
     
     public static final RegistryObject<ArmorItem> GOLDEN_BOOK_WYRM_SCALE_CHESTPLATE =
             register("golden_book_wyrm_scale_chestplate",
-                    p -> new ArmorItem(DLArmorMaterials.GOLDEN_BOOK_WYRM_SCALE, ArmorItem.Type.CHESTPLATE, p));
+                    p -> ItemUtils.dynamicArmor(DLArmorMaterials.GOLDEN_BOOK_WYRM_SCALE, ArmorItem.Type.CHESTPLATE, p));
     
     public static final RegistryObject<ArmorItem> GOLDEN_BOOK_WYRM_SCALE_LEGGINGS =
             register("golden_book_wyrm_scale_leggings",
-                    p -> new ArmorItem(DLArmorMaterials.GOLDEN_BOOK_WYRM_SCALE, ArmorItem.Type.LEGGINGS, p));
+                    p -> ItemUtils.dynamicArmor(DLArmorMaterials.GOLDEN_BOOK_WYRM_SCALE, ArmorItem.Type.LEGGINGS, p));
     
     public static final RegistryObject<ArmorItem> GOLDEN_BOOK_WYRM_SCALE_BOOTS =
             register("golden_book_wyrm_scale_boots",
-                    p -> new ArmorItem(DLArmorMaterials.GOLDEN_BOOK_WYRM_SCALE, ArmorItem.Type.BOOTS, p));
+                    p -> ItemUtils.dynamicArmor(DLArmorMaterials.GOLDEN_BOOK_WYRM_SCALE, ArmorItem.Type.BOOTS, p));
     
     public static final RegistryObject<UmbraBlasterItem> UMBRA_BLASTER =
             register("umbra_blaster", p -> new UmbraBlasterItem(new Item.Properties().stacksTo(1)));
@@ -164,19 +177,6 @@ public class DLItems {
     public static final RegistryObject<Item> RAVAGING_INGOT =
             register("ravaging_ingot",
                     p -> new Item(p));
-    
-    
-    public static final RegistryObject<AxeItem> RAVAGING_AXE =
-            register("ravaging_axe",
-                    p -> new AxeItem(DLToolMaterials.RAVAGING, 5.0f, -3.0F, p));
-    
-    public static final RegistryObject<PickaxeItem> RAVAGING_PICKAXE =
-            register("ravaging_pickaxe",
-                    p -> new PickaxeItem(DLToolMaterials.RAVAGING, 1, -2.8F, p));
-    
-    public static final RegistryObject<ShovelItem> RAVAGING_SHOVEL =
-            register("ravaging_shovel",
-                    p -> new ShovelItem(DLToolMaterials.RAVAGING, 1.5f, -3.0F, p));
     
     public static final RegistryObject<RavagerItem> THE_RAVAGER =
             register("the_ravager", p -> new RavagerItem(new Item.Properties().stacksTo(1)));

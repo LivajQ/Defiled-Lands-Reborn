@@ -1,17 +1,23 @@
 package com.euphony.defiled_lands_reborn.common.entity;
 
 import com.euphony.defiled_lands_reborn.common.init.DLEntities;
+import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,12 +29,35 @@ public class Host extends Zombie {
     
     public static AttributeSupplier.@NotNull Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.FOLLOW_RANGE, 35.0F)
-                .add(Attributes.MOVEMENT_SPEED, 0.27F)
                 .add(Attributes.ATTACK_DAMAGE, 5.0F)
+                .add(Attributes.ATTACK_SPEED, 1.0F)
+                .add(Attributes.ATTACK_KNOCKBACK, 1.0F)
+                .add(Attributes.MAX_HEALTH, 20.0F)
                 .add(Attributes.ARMOR, 2.0F)
+                .add(Attributes.MOVEMENT_SPEED, 0.27F)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.0F)
+                .add(Attributes.FOLLOW_RANGE, 35.0F)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
+    
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+        
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(ConfigHolder.common.hostAttackDamage);
+        this.getAttribute(Attributes.ATTACK_SPEED).setBaseValue(ConfigHolder.common.hostAttackSpeed);
+        this.getAttribute(Attributes.ATTACK_KNOCKBACK).setBaseValue(ConfigHolder.common.hostAttackKnockback);
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(ConfigHolder.common.hostHealth);
+        this.getAttribute(Attributes.ARMOR).setBaseValue(ConfigHolder.common.hostArmor);
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(ConfigHolder.common.hostMovementSpeed);
+        this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(ConfigHolder.common.hostKnockbackResistance);
+        this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(ConfigHolder.common.hostFollowRange);
+
+        this.setHealth(this.getMaxHealth());
+        
+        return data;
+    }
+    
     
     @Override
     public boolean isUnderWaterConverting() {

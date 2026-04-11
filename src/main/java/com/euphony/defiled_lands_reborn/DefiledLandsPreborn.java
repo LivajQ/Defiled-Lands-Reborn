@@ -9,7 +9,7 @@ import com.euphony.defiled_lands_reborn.utils.Utils;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
+
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -24,11 +24,11 @@ public class DefiledLandsPreborn {
     public static final String MOD_ID = "defiled_lands_preborn";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     
-    public DefiledLandsPreborn() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public DefiledLandsPreborn(FMLJavaModLoadingContext context) {
+        IEventBus modEventBus = context.getModEventBus();
         IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
         
-        ConfigHolder.init(ModLoadingContext.get(), modEventBus);
+        ConfigHolder.init(context, modEventBus);
         
         DLSounds.SOUNDS.register(modEventBus);
         
@@ -48,9 +48,7 @@ public class DefiledLandsPreborn {
         
         modEventBus.addListener(this::commonSetup);
         
-        if (Utils.isModLoaded("curios")) {
-            forgeEventBus.addGenericListener(ItemStack.class, CuriosCompat::registerCapabilities);
-        }
+        if (Utils.isModLoaded("curios")) forgeEventBus.addGenericListener(ItemStack.class, CuriosCompat::registerCapabilities);
     }
     
     private void commonSetup(final FMLCommonSetupEvent event) {

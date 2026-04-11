@@ -9,7 +9,7 @@ import org.apache.commons.lang3.tuple.Pair;
 public class ConfigHolder {
     public static CommonConfig common;
     
-    private static ForgeConfigSpec configCommonSpec;
+    public static ForgeConfigSpec configCommonSpec;
     
     public static void init(ModLoadingContext context, IEventBus modBus) {
         final Pair<CommonConfig, ForgeConfigSpec> specPair =

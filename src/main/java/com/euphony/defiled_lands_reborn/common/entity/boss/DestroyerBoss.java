@@ -1,5 +1,6 @@
 package com.euphony.defiled_lands_reborn.common.entity.boss;
 
+import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -14,6 +15,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -26,6 +28,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
@@ -135,11 +138,32 @@ public class DestroyerBoss extends Monster {
     
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 200)
-                .add(Attributes.FOLLOW_RANGE, 128)
+                .add(Attributes.ATTACK_DAMAGE, 16.0D)
+                .add(Attributes.ATTACK_SPEED, 1.0D)
+                .add(Attributes.ATTACK_KNOCKBACK, 1.5D)
+                .add(Attributes.MAX_HEALTH, 200.0D)
+                .add(Attributes.ARMOR, 10.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.32D)
-                .add(Attributes.ATTACK_DAMAGE, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                .add(Attributes.FOLLOW_RANGE, 128.0D);
+    }
+    
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+        
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(ConfigHolder.common.destroyerAttackDamage);
+        this.getAttribute(Attributes.ATTACK_SPEED).setBaseValue(ConfigHolder.common.destroyerAttackSpeed);
+        this.getAttribute(Attributes.ATTACK_KNOCKBACK).setBaseValue(ConfigHolder.common.destroyerAttackKnockback);
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(ConfigHolder.common.destroyerHealth);
+        this.getAttribute(Attributes.ARMOR).setBaseValue(ConfigHolder.common.destroyerArmor);
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(ConfigHolder.common.destroyerMovementSpeed);
+        this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(ConfigHolder.common.destroyerKnockbackResistance);
+        this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(ConfigHolder.common.destroyerFollowRange);
+        
+        this.setHealth(this.getMaxHealth());
+        
+        return data;
     }
     
     @Override

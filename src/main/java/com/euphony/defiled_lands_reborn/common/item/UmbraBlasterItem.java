@@ -6,6 +6,7 @@ import com.euphony.defiled_lands_reborn.common.init.DLEnchantments;
 import com.euphony.defiled_lands_reborn.common.init.DLItems;
 import com.euphony.defiled_lands_reborn.common.item.api.IEnchantDestructive;
 import com.euphony.defiled_lands_reborn.common.tag.DLItemTags;
+import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import com.euphony.defiled_lands_reborn.utils.ItemUtils;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
@@ -31,6 +32,11 @@ public class UmbraBlasterItem extends GunItem implements IEnchantDestructive {
     @Override
     public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
         return repair.is(DLItems.UMBRIUM_INGOT.get());
+    }
+    
+    @Override
+    public int getMaxDamage(ItemStack stack) {
+        return ConfigHolder.common.umbraBlasterDurability;
     }
     
     @Override
@@ -86,8 +92,8 @@ public class UmbraBlasterItem extends GunItem implements IEnchantDestructive {
             }
             
             float f = getDestructiveBonus(registryAccess, stack);
-            projectile.setDamage(projectile.getDamage() * f);
-            projectile.setExplosion(projectile.getExplosion() * f);
+            projectile.setDamage((float) (projectile.getDamage() * ConfigHolder.common.umbraBlasterDamageMultiplier * f));
+            projectile.setExplosion((float) (projectile.getExplosion() * ConfigHolder.common.umbraBlasterExplosionMultiplier * f));
             
             level.addFreshEntity(projectile);
             

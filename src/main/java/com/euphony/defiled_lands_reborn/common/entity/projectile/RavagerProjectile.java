@@ -4,6 +4,7 @@ import com.euphony.defiled_lands_reborn.common.init.DLEffects;
 import com.euphony.defiled_lands_reborn.common.init.DLEntities;
 import com.euphony.defiled_lands_reborn.common.init.DLItems;
 import com.euphony.defiled_lands_reborn.common.tag.DLItemTags;
+import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -29,12 +30,12 @@ public class RavagerProjectile extends AbstractHurtingProjectile implements Item
     
     public RavagerProjectile(EntityType<? extends RavagerProjectile> entityType, Level level) {
         super(entityType, level);
-        this.damage = 12.0F;
+        this.damage = (float) ConfigHolder.common.umbriumPelletDamage;
     }
     
     public RavagerProjectile(Level level, LivingEntity owner, Vec3 movement) {
         super(DLEntities.RAVAGER_PROJECTILE.get(), owner, movement.x, movement.y, movement.z, level);
-        this.damage = 12.0F;
+        this.damage = (float) ConfigHolder.common.umbriumPelletDamage;
     }
     
     @Override

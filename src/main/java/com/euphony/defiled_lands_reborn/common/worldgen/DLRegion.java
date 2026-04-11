@@ -1,7 +1,5 @@
 package com.euphony.defiled_lands_reborn.common.worldgen;
 
-import com.euphony.defiled_lands_reborn.DefiledLandsPreborn;
-import com.euphony.defiled_lands_reborn.config.CommonConfig;
 import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import com.euphony.defiled_lands_reborn.utils.Utils;
 import com.mojang.datafixers.util.Pair;
@@ -82,12 +80,12 @@ public class DLRegion extends Region {
         }
         else {
             this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
-                if (ConfigHolder.common.biome.canGenerateDefiledPlains.get()) this.addBiomeSimilar(mapper, Biomes.PLAINS, DLBiomes.DEFILED_PLAINS);
-                if (ConfigHolder.common.biome.canGenerateDefiledDesert.get()) this.addBiomeSimilar(mapper, Biomes.DESERT, DLBiomes.DEFILED_DESERT);
-                if (ConfigHolder.common.biome.canGenerateDefiledHills.get()) this.addBiomeSimilar(mapper, Biomes.WINDSWEPT_HILLS, DLBiomes.DEFILED_HILLS);
-                if (ConfigHolder.common.biome.canGenerateDefiledSnowyPlains.get()) this.addBiomeSimilar(mapper, Biomes.SNOWY_PLAINS, DLBiomes.DEFILED_SNOWY_PLAINS);
-                if (ConfigHolder.common.biome.canGenerateTenebraForest.get()) this.addBiomeSimilar(mapper, Biomes.BIRCH_FOREST, DLBiomes.TENEBRA_FOREST);
-                if (ConfigHolder.common.biome.canGenerateVilespineForest.get()) this.addBiomeSimilar(mapper, Biomes.DARK_FOREST, DLBiomes.VILESPINE_FOREST);
+                if (ConfigHolder.common.canGenerateDefiledPlains) this.addBiomeSimilar(mapper, Biomes.PLAINS, DLBiomes.DEFILED_PLAINS);
+                if (ConfigHolder.common.canGenerateDefiledDesert) this.addBiomeSimilar(mapper, Biomes.DESERT, DLBiomes.DEFILED_DESERT);
+                if (ConfigHolder.common.canGenerateDefiledHills) this.addBiomeSimilar(mapper, Biomes.WINDSWEPT_HILLS, DLBiomes.DEFILED_HILLS);
+                if (ConfigHolder.common.canGenerateDefiledSnowyPlains) this.addBiomeSimilar(mapper, Biomes.SNOWY_PLAINS, DLBiomes.DEFILED_SNOWY_PLAINS);
+                if (ConfigHolder.common.canGenerateTenebraForest) this.addBiomeSimilar(mapper, Biomes.BIRCH_FOREST, DLBiomes.TENEBRA_FOREST);
+                if (ConfigHolder.common.canGenerateVilespineForest) this.addBiomeSimilar(mapper, Biomes.DARK_FOREST, DLBiomes.VILESPINE_FOREST);
             });
         }
     }

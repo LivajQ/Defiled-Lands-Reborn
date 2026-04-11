@@ -1,20 +1,20 @@
 package com.euphony.defiled_lands_reborn.common.entity;
 
+import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
@@ -46,12 +46,34 @@ public class Shambler extends Monster {
     
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 40.0F)
-                .add(Attributes.MOVEMENT_SPEED, 0.14F)
-                .add(Attributes.ATTACK_DAMAGE, 14.0F)
-                .add(Attributes.FOLLOW_RANGE, 64.0F)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0F);
+                .add(Attributes.ATTACK_DAMAGE, 14.0D)
+                .add(Attributes.ATTACK_SPEED, 1.0D)
+                .add(Attributes.ATTACK_KNOCKBACK, 1.5D)
+                .add(Attributes.MAX_HEALTH, 40.0D)
+                .add(Attributes.ARMOR, 4.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.14D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                .add(Attributes.FOLLOW_RANGE, 64.0D);
     }
+    
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+        
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(ConfigHolder.common.shamblerAttackDamage);
+        this.getAttribute(Attributes.ATTACK_SPEED).setBaseValue(ConfigHolder.common.shamblerAttackSpeed);
+        this.getAttribute(Attributes.ATTACK_KNOCKBACK).setBaseValue(ConfigHolder.common.shamblerAttackKnockback);
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(ConfigHolder.common.shamblerHealth);
+        this.getAttribute(Attributes.ARMOR).setBaseValue(ConfigHolder.common.shamblerArmor);
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(ConfigHolder.common.shamblerMovementSpeed);
+        this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(ConfigHolder.common.shamblerKnockbackResistance);
+        this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(ConfigHolder.common.shamblerFollowRange);
+        
+        this.setHealth(this.getMaxHealth());
+        
+        return data;
+    }
+    
     
     public static boolean checkShamblerSpawnRules(
             EntityType<? extends Monster> type,
