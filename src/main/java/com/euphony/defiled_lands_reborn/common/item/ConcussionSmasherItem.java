@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -62,6 +63,11 @@ public class ConcussionSmasherItem extends Item implements IEnchantDestructive {
         ItemStack stack = player.getItemInHand(hand);
         player.startUsingItem(hand);
         return InteractionResultHolder.consume(stack);
+    }
+    
+    @Override
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.BOW;
     }
     
     @Override

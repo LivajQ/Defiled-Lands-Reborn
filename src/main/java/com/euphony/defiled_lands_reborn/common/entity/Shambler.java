@@ -1,5 +1,6 @@
 package com.euphony.defiled_lands_reborn.common.entity;
 
+import com.euphony.defiled_lands_reborn.common.tag.DLEntityTags;
 import com.euphony.defiled_lands_reborn.config.ConfigHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -17,7 +18,11 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.NotNull;
@@ -74,6 +79,24 @@ public class Shambler extends Monster {
         return data;
     }
     
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.8D));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, false,
+                        target -> target != null
+                                && target != this
+                                && !(target instanceof Player)
+                                && !target.getType().is(DLEntityTags.IS_DEFILED)
+                )
+        );
+    }
     
     public static boolean checkShamblerSpawnRules(
             EntityType<? extends Monster> type,

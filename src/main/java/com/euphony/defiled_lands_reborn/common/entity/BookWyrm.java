@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -26,6 +27,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -36,10 +38,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BookWyrm extends Animal {
     private int enchLevel, digestingTime;
@@ -106,9 +112,14 @@ public class BookWyrm extends Animal {
     private void makeBook() {
         ItemStack stack;
         List<EnchantmentInstance> enchantmentInstances = getPossibleEnchantments();
+        if (!enchantmentInstances.isEmpty()) {
+            EnchantmentInstance primary = enchantmentInstances.get(0);
+            enchantmentInstances = List.of(primary);
+        }
+        
         stack = new ItemStack(Items.ENCHANTED_BOOK);
         for (EnchantmentInstance e : enchantmentInstances) {
-            stack.enchant(e.enchantment, e.level);
+            EnchantedBookItem.addEnchantment(stack, e);
         }
         playSound(SoundEvents.PLAYER_LEVELUP, 1, 1);
         playSound(SoundEvents.CHICKEN_EGG, 1, 1);
@@ -116,13 +127,47 @@ public class BookWyrm extends Animal {
     }
     
     public List<EnchantmentInstance> getPossibleEnchantments() {
+        return getPossibleEnchantments(false);
+    }
+    
+    public List<EnchantmentInstance> getPossibleEnchantments(boolean allowTreasure) {
         var registry = level().registryAccess().registryOrThrow(Registries.ENCHANTMENT);
         
-        List<Enchantment> allowed = registry.stream().filter(Enchantment::isAllowedOnBooks).toList();
-        List<EnchantmentInstance> list = EnchantmentHelper.selectEnchantment(random, Items.BOOK.getDefaultInstance(), enchLevel, false);
-        list.removeIf(e -> !allowed.contains(e.enchantment));
+        Set<Enchantment> allowed = registry.stream().filter(Enchantment::isAllowedOnBooks).collect(Collectors.toSet());
+        allowed.removeIf(e -> {
+            ResourceLocation key = ForgeRegistries.ENCHANTMENTS.getKey(e);
+            if (key == null) return true;
+            String id = key.toString();
+            
+            if (ConfigHolder.common.bookWyrmBlacklistIsWhitelist) return !ConfigHolder.common.bookWyrmBlacklist.contains(id);
+            else return ConfigHolder.common.bookWyrmBlacklist.contains(id);
+        });
+        
+        List<EnchantmentInstance> list;
+        int tries = 1;
+        do {
+            list = EnchantmentHelper.selectEnchantment(random, Items.BOOK.getDefaultInstance(), enchLevel, allowTreasure);
+            list.removeIf(e -> !allowed.contains(e.enchantment));
+        } while (list.isEmpty() && tries++ <= 10);
+        if (list.isEmpty()) list = chooseRandomAllowed(allowed, enchLevel);
         
         return list;
+    }
+    
+    private List<EnchantmentInstance> chooseRandomAllowed(Set<Enchantment> allowed, int level) {
+        List<EnchantmentInstance> pool = new ArrayList<>();
+        
+        for (Enchantment e : allowed) {
+            for (int i = e.getMaxLevel(); i >= e.getMinLevel(); i--) {
+                if (level >= e.getMinCost(i) && level <= e.getMaxCost(i)) {
+                    pool.add(new EnchantmentInstance(e, i));
+                    break;
+                }
+            }
+        }
+        
+        if (pool.isEmpty()) return List.of();
+        return List.of(pool.get(random.nextInt(pool.size())));
     }
     
     public static int getBookValue(ItemStack stack) {

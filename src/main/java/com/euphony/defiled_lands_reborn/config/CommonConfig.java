@@ -7,9 +7,15 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Mod.EventBusSubscriber(modid = DefiledLandsPreborn.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonConfig {
   
+    private final ForgeConfigSpec.ConfigValue<List<? extends String>> BOOK_WYRM_BLACKLIST;
+    
     private final ForgeConfigSpec.ConfigValue<String> SCARLITE_REAVER_EFFECT_TYPE;
     
     private final ForgeConfigSpec.BooleanValue ENABLE_CORRUPTION_SPREAD;
@@ -20,6 +26,7 @@ public class CommonConfig {
     private final ForgeConfigSpec.BooleanValue CAN_GENERATE_DEFILED_SNOWY_PLAINS;
     private final ForgeConfigSpec.BooleanValue CAN_GENERATE_TENEBRA_FOREST;
     private final ForgeConfigSpec.BooleanValue CAN_GENERATE_VILESPINE_FOREST;
+    private final ForgeConfigSpec.BooleanValue BOOK_WYRM_BLACKLIST_IS_WHITELIST;
     
     private final ForgeConfigSpec.DoubleValue GOLDEN_WYRM_CHANCE_FOR_ZERO_GOLDEN;
     private final ForgeConfigSpec.DoubleValue GOLDEN_WYRM_CHANCE_FOR_ONE_GOLDEN;
@@ -145,6 +152,16 @@ public class CommonConfig {
         GOLDEN_WYRM_CHANCE_FOR_ONE_GOLDEN = builder.comment("The probability for one golden book wyrm and one normal book wyrm to produce a golden book wyrm").defineInRange("golden_wyrm_chance_for_one_golden", 0.04, 0.0, 1.0);
         GOLDEN_WYRM_CHANCE_FOR_TWO_GOLDEN = builder.comment("The probability for two golden book wyrms to produce a golden book wyrm").defineInRange("golden_wyrm_chance_for_two_golden", 0.1, 0.0, 1.0);
         BOOK_WYRM_MAX_ENCHANTING_LEVEL = builder.comment("Maximum enchanting level for Book Wyrm").defineInRange("book_wyrm_max_enchanting_level", 30, 10, 1000);
+        BOOK_WYRM_BLACKLIST = builder
+                .comment("Enchantments that cannot be dropped by bookwyrms")
+                .defineListAllowEmpty(
+                        List.of("book_wyrm_blacklist"),
+                        List.of(
+                                "minecraft:blast_protection"
+                        ),
+                        o -> o instanceof String
+                );
+        BOOK_WYRM_BLACKLIST_IS_WHITELIST = builder.comment("Whether the blacklist should be treated as a whitelist").define("book_wyrm_blacklist_is_whitelist", false);
         
         builder.pop();
         
@@ -340,6 +357,8 @@ public class CommonConfig {
         builder.pop();
     }
     
+    public Set<? extends String> bookWyrmBlacklist;
+    
     public ResourceLocation scarliteReaverEffectType;
     
     public boolean enableCorruptionSpread;
@@ -350,6 +369,7 @@ public class CommonConfig {
     public boolean canGenerateDefiledSnowyPlains;
     public boolean canGenerateTenebraForest;
     public boolean canGenerateVilespineForest;
+    public boolean bookWyrmBlacklistIsWhitelist;
     
     public double goldenWyrmChanceForZeroGolden;
     public double goldenWyrmChanceForOneGolden;
@@ -577,6 +597,8 @@ public class CommonConfig {
         materialRavagingHarvestLevel = MATERIAL_RAVAGING_HARVEST_LEVEL.get();
         enchantmentDestructiveStrength = ENCHANTMENT_DESTRUCTIVE_STRENGTH.get();
         enchantmentDestructiveLevel =  ENCHANTMENT_DESTRUCTIVE_LEVEL.get();
+        bookWyrmBlacklist = new HashSet<>(BOOK_WYRM_BLACKLIST.get());
+        bookWyrmBlacklistIsWhitelist = BOOK_WYRM_BLACKLIST_IS_WHITELIST.get();
     }
     
     @SubscribeEvent
