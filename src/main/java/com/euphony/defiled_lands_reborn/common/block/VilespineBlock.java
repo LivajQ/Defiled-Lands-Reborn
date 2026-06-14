@@ -7,6 +7,8 @@ import com.euphony.defiled_lands_reborn.common.tag.DLEntityTags;
 import com.euphony.defiled_lands_reborn.utils.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -31,6 +33,26 @@ public class VilespineBlock extends Block {
     public VilespineBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(TOPMOST, false));
+    }
+    
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (!state.getValue(TOPMOST)) return;
+        
+        if (random.nextInt(5) == 0) {
+            int height = 1;
+            while (level.getBlockState(pos.below(height)).is(this)) {
+                height++;
+            }
+            
+            if (height < 5) {
+                BlockPos above = pos.above();
+                if (level.isEmptyBlock(above)) {
+                    level.setBlock(above, this.defaultBlockState().setValue(TOPMOST, true), 2);
+                    level.setBlock(pos, state.setValue(TOPMOST, false), 2);
+                }
+            }
+        }
     }
     
     @Override

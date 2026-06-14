@@ -5,12 +5,16 @@ import com.euphony.defiled_lands_reborn.common.init.DLItems;
 import com.euphony.defiled_lands_reborn.common.tag.DLEntityTags;
 import com.euphony.defiled_lands_reborn.utils.Utils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -20,7 +24,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
-public class BlastemBlock extends Block {
+public class BlastemBlock extends BushBlock implements BonemealableBlock {
     
     protected static final VoxelShape SHAPE =
             Block.box(3.0F, 0.0F, 3.0F, 13.0F, 14.0F, 13.0F);
@@ -39,6 +43,16 @@ public class BlastemBlock extends Block {
     }
     
     @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        int age = state.getValue(BlockStateProperties.AGE_15);
+        if (age < 15 && level.getRawBrightness(pos, 0) >= 9) {
+            if (random.nextInt(5) == 0) {
+                level.setBlock(pos, state.setValue(BlockStateProperties.AGE_15, Math.min(age + 1, 15)), 2);
+            }
+        }
+    }
+    
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
@@ -48,6 +62,24 @@ public class BlastemBlock extends Block {
         BlockPos below = pos.below();
         BlockState soil = level.getBlockState(below);
         return soil.is(DLBlocks.DEFILED_GRASS_BLOCK.get()) || soil.is(DLBlocks.DEFILED_DIRT.get());
+    }
+    
+    @Override
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+        return state.getValue(BlockStateProperties.AGE_15) < 15;
+    }
+    
+    @Override
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+        return true;
+    }
+    
+    @Override
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+        int age = state.getValue(BlockStateProperties.AGE_15);
+        if (age < 15) {
+            level.setBlock(pos, state.setValue(BlockStateProperties.AGE_15, Math.min(age + random.nextInt(3) + 1, 15)), 2);
+        }
     }
     
     @Override

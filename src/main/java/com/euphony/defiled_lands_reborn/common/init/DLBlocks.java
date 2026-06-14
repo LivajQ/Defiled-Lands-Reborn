@@ -107,11 +107,11 @@ public class DLBlocks {
     
     public static final RegistryObject<VilespineBlock> VILESPINE =
             registerWithItem("vilespine", VilespineBlock::new,
-                    BlockBehaviour.Properties.copy(Blocks.DEAD_BUSH));
+                    BlockBehaviour.Properties.copy(Blocks.DEAD_BUSH).randomTicks());
     
     public static final RegistryObject<BlastemBlock> BLASTEM =
-            registerWithItem("blastem", BlastemBlock::new,
-                    BlockBehaviour.Properties.copy(Blocks.OAK_SLAB));
+            register("blastem", BlastemBlock::new,
+                    BlockBehaviour.Properties.copy(Blocks.DEAD_BUSH).randomTicks());
     
     public static final RegistryObject<ScuronotteBlock> SCURONOTTE =
             registerWithItem("scuronotte", ScuronotteBlock::new,

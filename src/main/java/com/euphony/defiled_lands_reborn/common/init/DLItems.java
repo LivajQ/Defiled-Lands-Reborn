@@ -36,8 +36,8 @@ public class DLItems {
     public static final RegistryObject<Item> SCARLITE =
             register("scarlite", Item::new);
     
-    public static final RegistryObject<Item> BLASTEM_SEED =
-            register("blastem_seed", Item::new);
+    public static final RegistryObject<BlockItem> BLASTEM_SEED =
+            ITEMS.register("blastem_seed", () -> new BlockItem(DLBlocks.BLASTEM.get(), new Item.Properties()));
     
     public static final RegistryObject<BlastemFruitItem> BLASTEM_FRUIT =
             register("blastem_fruit", BlastemFruitItem::new);
